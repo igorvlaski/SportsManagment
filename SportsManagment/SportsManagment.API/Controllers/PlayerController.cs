@@ -15,7 +15,7 @@ namespace SportsManagment.API.Controllers
         }
 
         [HttpPost(Name = "CreateAPlayer")]
-        public Guid Create(Player player)
+        public Guid Create(Player player) 
         {
             _players.Add(player);
             return player.Id;
@@ -28,7 +28,7 @@ namespace SportsManagment.API.Controllers
 
             if (player == null)
             {
-                return NotFound();
+                return NotFound("This player is not on the roster.");
             }
             
             _players.Remove(player);   
@@ -43,7 +43,7 @@ namespace SportsManagment.API.Controllers
 
             if (player == null) 
             {
-                return NotFound(); 
+                return NotFound("This player is not on the roster."); 
             }
 
             return Ok(player);
@@ -56,7 +56,7 @@ namespace SportsManagment.API.Controllers
 
             if(player == null)
             {
-                return NotFound();
+                return NotFound("This player is not on the roster.");
             }
 
             player.Id = updatePlayer.Id;
