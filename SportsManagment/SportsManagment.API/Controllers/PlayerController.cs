@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SportsManagment.API.Domain;
 
 namespace SportsManagment.API.Controllers
 {
@@ -9,20 +10,20 @@ namespace SportsManagment.API.Controllers
         private static List<Player> _players = new List<Player>();
         
         [HttpGet(Name = "GetAllPlayers")]
-        public List<Player> GetAll()
+        public ActionResult<List<Player>> GetAll()
         {
-         return _players;
+         return Ok(_players);
         }
 
         [HttpPost(Name = "CreateAPlayer")]
-        public Guid Create(Player player) 
+        public ActionResult<Guid> Create(Player player)
         {
             _players.Add(player);
-            return player.Id;
+            return CreatedAtAction(nameof(GetById), new { id = player.Id }, player.Id);
         }
 
-        [HttpDelete(Name = "DeleteAPlayer")]
-        public IActionResult Delete(Guid id) 
+        [HttpDelete("{id}", Name = "DeleteAPlayer")]
+        public ActionResult Delete(Guid id) 
         {
             var player = _players.FirstOrDefault(x => x.Id == id);
 
@@ -36,8 +37,8 @@ namespace SportsManagment.API.Controllers
             return NoContent();
         }
 
-        [HttpGet(Name = "GetPlayerBYId")]
-        public IActionResult GetById(Guid id) 
+        [HttpGet("{id}",Name = "GetPlayerBYId")]
+        public ActionResult<Player> GetById(Guid id) 
         {
             var player = _players.FirstOrDefault(x => x.Id == id);
 
@@ -49,8 +50,8 @@ namespace SportsManagment.API.Controllers
             return Ok(player);
         }
 
-        [HttpPut(Name = "UpdatePlayer")]
-        public IActionResult Update(Guid id, Player updatePlayer)
+        [HttpPut("{id}",Name = "UpdatePlayer")]
+        public ActionResult<Player> Update(Guid id, Player updatePlayer)
         {
             var player = _players.FirstOrDefault(x=>x.Id == id);
 
