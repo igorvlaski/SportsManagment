@@ -20,5 +20,55 @@ namespace SportsManagment.API.Controllers
             _players.Add(player);
             return player.Id;
         }
+
+        [HttpDelete(Name = "DeleteAPlayer")]
+        public IActionResult Delete(Guid id) 
+        {
+            var player = _players.FirstOrDefault(x => x.Id == id);
+
+            if (player == null)
+            {
+                return NotFound();
+            }
+            
+            _players.Remove(player);   
+
+            return NoContent();
+        }
+
+        [HttpGet(Name = "GetPlayerBYId")]
+        public IActionResult GetById(Guid id) 
+        {
+            var player = _players.FirstOrDefault(x => x.Id == id);
+
+            if (player == null) 
+            {
+                return NotFound(); 
+            }
+
+            return Ok(player);
+        }
+
+        [HttpPut(Name = "UpdatePlayer")]
+        public IActionResult Update(Guid id, Player updatePlayer)
+        {
+            var player = _players.FirstOrDefault(x=>x.Id == id);
+
+            if(player == null)
+            {
+                return NotFound();
+            }
+
+            player.Id = updatePlayer.Id;
+            player.FirstName = updatePlayer.FirstName;
+            player.LastName = updatePlayer.LastName;
+            player.DateOfBirth = updatePlayer.DateOfBirth;
+            player.IsMonthlyFeePaid = updatePlayer.IsMonthlyFeePaid;
+            player.IsYearlyFeePaid = updatePlayer.IsYearlyFeePaid;
+
+            return Ok(player);
+        }
+
+
     }
 }
