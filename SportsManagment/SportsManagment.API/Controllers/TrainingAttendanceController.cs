@@ -41,7 +41,7 @@ namespace SportsManagment.API.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}", Name = "GetTrainingAttendanceBYId")]
+        [HttpGet("{id}", Name = "GetTrainingAttendanceById")]
         public ActionResult<TrainingAttendance> GetById(Guid id)
         {
             var result = _trainingAttendanceService.GetById(id);

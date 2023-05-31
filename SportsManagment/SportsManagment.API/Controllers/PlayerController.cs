@@ -40,7 +40,7 @@ namespace SportsManagment.API.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}", Name = "GetPlayerBYId")]
+        [HttpGet("{id}", Name = "GetPlayerById")]
         public ActionResult<Player> GetById(Guid id)
         {
             var result = _playerService.GetById(id);

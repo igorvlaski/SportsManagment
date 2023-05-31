@@ -59,7 +59,6 @@
                 return null!;
             }
 
-            player.Id = updatePlayer.Id;
             player.FirstName = updatePlayer.FirstName;
             player.LastName = updatePlayer.LastName;
             player.DateOfBirth = updatePlayer.DateOfBirth;

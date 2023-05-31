@@ -1,6 +1,4 @@
-﻿
-
-namespace SportsManagment.API.Services.PlayerService
+﻿namespace SportsManagment.API.Services.PlayerService
 {
     public interface IPlayerService
     {

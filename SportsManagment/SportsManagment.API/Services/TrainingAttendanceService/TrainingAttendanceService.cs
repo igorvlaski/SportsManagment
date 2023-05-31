@@ -9,6 +9,13 @@
         }
         public Guid Create(TrainingAttendance trainingAttendance)
         {
+            var player = _dbContext.Players.FirstOrDefault(x => x.Id == trainingAttendance.PlayerId);
+
+            if (player == null)
+            {
+                throw new Exception($"Player with Id {trainingAttendance.PlayerId} does not exist!");
+            }
+
             trainingAttendance.Id = Guid.NewGuid();
             _dbContext.TrainingAttendances.Add(trainingAttendance);
             _dbContext.SaveChanges();
@@ -59,10 +66,8 @@
                 return null!;
             }
 
-            trainingAttendance.Id = updateTrainingAttendance.Id;
             trainingAttendance.Selection = updateTrainingAttendance.Selection;
             trainingAttendance.Date = updateTrainingAttendance.Date;
-            trainingAttendance.WasPresent = updateTrainingAttendance.WasPresent;
 
             _dbContext.SaveChanges();
 
