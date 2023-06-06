@@ -18,6 +18,9 @@ namespace SportsManagment.API.Data
 
         public DbSet<Player> Players { get; set; }
         public DbSet<TrainingAttendance> TrainingAttendances { get; set; }
-        
+        public DbSet<PerformanceMeasurement> PerformanceMeasurements { get; set; }
+        public DbSet<BodyMeasurement> BodyMeasurements { get; set; }
+
+
     }
 }
