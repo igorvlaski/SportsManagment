@@ -1,0 +1,83 @@
+The Most Common EF Core CLI Commands
+
+dotnet ef command is the starting point for all EF Core CLI commands. It is used to invoke the EF Core CLI and specify the subcommand that you want to run.
+
+dotnet ef migrations command is used to manage EF Core migrations. Migrations are a way to evolve the database schema over time, as your application's requirements change.
+Here are some common subcommands of the dotnet ef migrations command:
+
+add
+The add subcommand is used to create a new migration. It takes a migration name as an argument.
+For example:
+dotnet ef migrations add AddProductTable
+
+list
+The list subcommand is used to list all available migrations. It does not take any arguments.
+For example:
+dotnet ef migrations list
+
+
+
+remove
+The remove subcommand is used to delete a migration. It takes a migration name as an argument.
+For example:
+dotnet ef migrations remove AddProductTable
+
+apply
+The apply subcommand is used to apply a migration to the database. It takes a migration name as an argument.
+For example:
+dotnet ef migrations apply InitialCreate
+
+script
+The script subcommand is used to generate a SQL script that can be used to apply a migration to the database. It takes a migration name as an argument.
+For example:
+dotnet ef migrations script InitialCreate
+
+dotnet ef database command is used to manage the database that is used by EF Core.
+Here are some common subcommands of the dotnet ef database command:
+
+update
+The update subcommand is used to apply pending migrations to the database. It does not take any arguments.
+For example:
+dotnet ef database update
+
+drop
+The drop subcommand is used to drop the database. It does not take any arguments.
+For example:
+dotnet ef database drop
+
+create
+The create subcommand is used to create the database. It does not take any arguments.
+For example:
+dotnet ef database create
+
+dotnet ef query command is used to execute a raw SQL query against the database. It takes a SQL query as an argument.
+For example:
+dotnet ef query "SELECT * FROM Customers"
+
+
+
+dotnet ef dbcontext command is used to manage the database context class, which represents a session with the database.
+Here are some common subcommands of the dotnet ef dbcontext command:
+
+info
+The info subcommand is used to display information about the database context, such as the connection string and the list of entities. It does not take any arguments.
+For example:
+dotnet ef dbcontext info
+
+scaffold
+The scaffold subcommand is used to generate a database context and entity classes based on an existing database. It takes a connection string and a provider as arguments.
+For example:
+dotnet ef dbcontext scaffold "Server=localhost;Database=mydatabase;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer
+
+dotnet ef model command is used to manage the entity model, which is a set of classes that represent the data in the database.
+Here are some common subcommands of the dotnet ef model command:
+
+diff
+The diff subcommand is used to compare the entity model to the database schema and generate a migration to synchronize them. It does not take any arguments.
+For example:
+dotnet ef model diff
+
+snapshot
+The snapshot subcommand is used to generate a snapshot of the entity model, which can be used to generate a migration. It does not take any arguments.
+For example:
+dotnet ef model snapshot
