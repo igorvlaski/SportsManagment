@@ -63,6 +63,18 @@ namespace SportsManagment.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("player/{playerId}", Name = "GetAllTrainingAttendancesByPlayerId")]
+        public ActionResult<List<TrainingAttendance>> GetAllTrainingAttendancesByPlayerId(Guid playerId, DateOnly? newerthen)
+        {
+            var result = _trainingAttendanceService.GetAllTrainingAttendancesByPlayerId(playerId, newerthen);
 
+
+            if (result == null)
+            {
+                return NotFound("No training attendances found for the specified player.");
+            }
+
+            return Ok(result);
+        }
     }
 }

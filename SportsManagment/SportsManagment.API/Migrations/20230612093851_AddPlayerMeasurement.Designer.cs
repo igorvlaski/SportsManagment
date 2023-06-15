@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SportsManagment.API.Data;
@@ -11,9 +12,11 @@ using SportsManagment.API.Data;
 namespace SportsManagment.API.Migrations
 {
     [DbContext(typeof(SportsManagmentDbContext))]
-    partial class SportsManagmentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230612093851_AddPlayerMeasurement")]
+    partial class AddPlayerMeasurement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,27 +25,18 @@ namespace SportsManagment.API.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SportsManagment.API.Domain.MeasurementInformation", b =>
+            modelBuilder.Entity("SportsManagment.API.Domain.MeasurementDate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("MeasurementInformations");
+                    b.ToTable("MeasurementDate");
                 });
 
             modelBuilder.Entity("SportsManagment.API.Domain.Player", b =>
@@ -77,48 +71,48 @@ namespace SportsManagment.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("AgilityTest505")
-                        .HasColumnType("numeric");
+                    b.Property<double>("AgilityTest505")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal>("ArmSpan")
-                        .HasColumnType("numeric");
+                    b.Property<double>("ArmSpan")
+                        .HasColumnType("double precision");
 
-                    b.Property<int>("BeepTest")
-                        .HasColumnType("integer");
+                    b.Property<double>("BeepTest")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal>("HandSpan")
-                        .HasColumnType("numeric");
+                    b.Property<double>("HandSpan")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal>("Height")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Height")
+                        .HasColumnType("double precision");
 
-                    b.Property<Guid>("MeasurementInformationId")
+                    b.Property<Guid>("MeasurementDateId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("PlayerId")
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("ShoeSize")
-                        .HasColumnType("numeric");
+                    b.Property<double>("ShoeSize")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal>("SitAndReach")
-                        .HasColumnType("numeric");
+                    b.Property<double>("SitAndReach")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal>("Skinfold")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Skinfold")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal>("Sprint20m")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Sprint20m")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal>("VerticalJump")
-                        .HasColumnType("numeric");
+                    b.Property<double>("VerticalJump")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal>("Weight")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Weight")
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MeasurementInformationId");
+                    b.HasIndex("MeasurementDateId");
 
                     b.HasIndex("PlayerId");
 
@@ -149,17 +143,19 @@ namespace SportsManagment.API.Migrations
 
             modelBuilder.Entity("SportsManagment.API.Domain.PlayerMeasurement", b =>
                 {
-                    b.HasOne("SportsManagment.API.Domain.MeasurementInformation", null)
-                        .WithMany("PlayerMeasurements")
-                        .HasForeignKey("MeasurementInformationId")
+                    b.HasOne("SportsManagment.API.Domain.MeasurementDate", "MeasurementDate")
+                        .WithMany()
+                        .HasForeignKey("MeasurementDateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SportsManagment.API.Domain.Player", null)
-                        .WithMany("PlayerMeasurements")
+                        .WithMany("PlayerMeasurement")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("MeasurementDate");
                 });
 
             modelBuilder.Entity("SportsManagment.API.Domain.TrainingAttendance", b =>
@@ -171,14 +167,9 @@ namespace SportsManagment.API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.MeasurementInformation", b =>
-                {
-                    b.Navigation("PlayerMeasurements");
-                });
-
             modelBuilder.Entity("SportsManagment.API.Domain.Player", b =>
                 {
-                    b.Navigation("PlayerMeasurements");
+                    b.Navigation("PlayerMeasurement");
 
                     b.Navigation("TrainingAttendances");
                 });

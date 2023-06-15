@@ -39,7 +39,7 @@
         public Player GetById(Guid id)
         {
 
-            var player = _dbContext.Players.FirstOrDefault(x => x.Id == id);
+            var player = _dbContext.Players.Include(x=>x.TrainingAttendances).Include(x=>x.PlayerMeasurements).FirstOrDefault(x => x.Id == id);
 
             if (player == null)
             {

@@ -10,5 +10,6 @@ public class Player
     public bool IsYearlyFeePaid { get; set; }
 
     public List<TrainingAttendance> TrainingAttendances { get; set; } = new List<TrainingAttendance>();
+    public List<PlayerMeasurement> PlayerMeasurements { get; set; } = new List<PlayerMeasurement>();
 
 }

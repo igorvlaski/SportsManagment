@@ -1,4 +1,6 @@
-﻿namespace SportsManagment.API.Services.TrainingAttendanceService
+﻿using System.Linq;
+
+namespace SportsManagment.API.Services.TrainingAttendanceService
 {
     public class TrainingAttendanceService : ITrainingAttendanceService
     {
@@ -73,6 +75,23 @@
 
             return trainingAttendance;
         }
+
+        public List<TrainingAttendance> GetAllTrainingAttendancesByPlayerId(Guid playerId, DateOnly? newerthen)
+        {
+            var trainingAttendance = _dbContext.TrainingAttendances.Where(x => x.PlayerId == playerId);
+            if (newerthen.HasValue)
+            {
+                trainingAttendance = trainingAttendance.Where(x => x.Date > newerthen);
+            }
+
+            if (trainingAttendance == null)
+            {
+                return null!;
+            }
+
+            return trainingAttendance.ToList();
+        }
+
     }
 }
 
