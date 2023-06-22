@@ -67,8 +67,6 @@ namespace SportsManagment.API.Controllers
         public ActionResult<List<TrainingAttendance>> GetAllTrainingAttendancesByPlayerId(Guid playerId, DateOnly? newerthen)
         {
             var result = _trainingAttendanceService.GetAllTrainingAttendancesByPlayerId(playerId, newerthen);
-
-
             if (result == null)
             {
                 return NotFound("No training attendances found for the specified player.");

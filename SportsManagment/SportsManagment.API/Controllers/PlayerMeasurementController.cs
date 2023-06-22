@@ -66,7 +66,7 @@ namespace SportsManagment.API.Controllers
         [HttpGet("player/{playerId}", Name = "GetAllPlayerMeasurementByPlayerId")]
         public ActionResult<List<PlayerMeasurement>> GetAllPlayerMeasurementByPlayerId(Guid playerId)
         {
-            var result = _playerMeasurementService.GetAllPlayerMeasurementByPlayerId(playerId);
+            var result = _playerMeasurementService.GetAllPlayerMeasurementsByPlayerId(playerId);
 
             if (result == null)
             {

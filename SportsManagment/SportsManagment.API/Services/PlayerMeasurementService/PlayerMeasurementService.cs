@@ -17,7 +17,6 @@
                 throw new Exception($"Player with Id {playerMeasurement.PlayerId} does not exist!");
             }
 
-
             var measurementInformation = _dbContext.MeasurementInformations.FirstOrDefault(x => x.Id == playerMeasurement.MeasurementInformationId);
 
             if (measurementInformation == null)
@@ -92,16 +91,16 @@
             return playerMeasurement;
         }
 
-        public List<PlayerMeasurement> GetAllPlayerMeasurementByPlayerId(Guid playerId)
+        public List<PlayerMeasurement> GetAllPlayerMeasurementsByPlayerId(Guid playerId)
         {
-            var playerMeasurement = _dbContext.PlayerMeasurements.Where(x => x.PlayerId == playerId);
+            var playerMeasurements = _dbContext.PlayerMeasurements.Where(x => x.PlayerId == playerId);
 
-            if (playerMeasurement == null)
+            if (playerMeasurements == null)
             {
                 return null!;
             }
 
-            return playerMeasurement.ToList();
+            return playerMeasurements.ToList();
         }
     }
 }

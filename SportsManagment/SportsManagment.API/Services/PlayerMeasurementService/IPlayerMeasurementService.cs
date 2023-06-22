@@ -7,6 +7,6 @@
         PlayerMeasurement GetById(Guid id);
         bool Delete(Guid id);
         PlayerMeasurement Update(Guid id, PlayerMeasurement updatePlayerMeasurement);
-        List<PlayerMeasurement> GetAllPlayerMeasurementByPlayerId(Guid playerId);
+        List<PlayerMeasurement> GetAllPlayerMeasurementsByPlayerId(Guid playerId);
     }
 }

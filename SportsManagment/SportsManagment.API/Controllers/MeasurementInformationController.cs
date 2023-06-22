@@ -4,7 +4,7 @@ using SportsManagment.API.Services.MeasurementInformationService;
 namespace SportsManagment.API.Controllers
 {
     [ApiController]
-    [Route("controller")]
+    [Route("[controller]")]
     public class MeasurementInformationController : ControllerBase
     {
         private readonly IMeasurementInformationService _measurementInformationService;
