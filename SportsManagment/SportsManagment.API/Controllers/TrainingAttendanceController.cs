@@ -33,8 +33,8 @@ namespace SportsManagment.API.Controllers
         [HttpDelete("{id}", Name = "DeleteTrainingAttendance")]
         public ActionResult Delete(Guid id)
         {
-            var result = _trainingAttendanceService.Delete(id);
-            if (result == false)
+            var isDeleted = _trainingAttendanceService.Delete(id);
+            if (isDeleted == false)
             {
                 return NotFound("This Training Attendance does not exist.");
             }
@@ -44,25 +44,35 @@ namespace SportsManagment.API.Controllers
         [HttpGet("{id}", Name = "GetTrainingAttendanceById")]
         public ActionResult<TrainingAttendance> GetById(Guid id)
         {
-            var result = _trainingAttendanceService.GetById(id);
-            if (result == null)
+            var trainingAttendance = _trainingAttendanceService.GetById(id);
+            if (trainingAttendance == null)
             {
                 return NotFound("This Training Attendance does not exist.");
             }
-            return Ok(result);
+            return Ok(trainingAttendance);
         }
 
         [HttpPut("{id}", Name = "UpdateTrainingAttendance")]
         public ActionResult<TrainingAttendance> Update(Guid id, TrainingAttendance updateTrainingAttendance)
         {
-            var result = _trainingAttendanceService.Update(id, updateTrainingAttendance);
-            if (result == null)
+            var trainingAttendance = _trainingAttendanceService.Update(id, updateTrainingAttendance);
+            if (trainingAttendance == null)
             {
                 return NotFound("This Training Attendance does not exist.");
             }
-            return Ok(result);
+            return Ok(trainingAttendance);
         }
 
+        [HttpGet("player/{playerId}", Name = "GetAllTrainingAttendancesByPlayerId")]
+        public ActionResult<List<TrainingAttendance>> GetAllTrainingAttendancesByPlayerId(Guid playerId, DateOnly? newerthen)
+        {
+            var trainingAttendances = _trainingAttendanceService.GetAllTrainingAttendancesByPlayerId(playerId, newerthen);
+            if (trainingAttendances == null)
+            {
+                return NotFound("No training attendances found for the specified player.");
+            }
 
+            return Ok(trainingAttendances);
+        }
     }
 }
