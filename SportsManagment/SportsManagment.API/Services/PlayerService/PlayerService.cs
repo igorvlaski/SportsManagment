@@ -1,4 +1,6 @@
-﻿namespace SportsManagment.API.Services.PlayerService
+﻿using SportsManagment.API.Domain;
+
+namespace SportsManagment.API.Services.PlayerService
 {
     public class PlayerService : IPlayerService
     {
@@ -36,14 +38,18 @@
             return _dbContext.Players.ToList();
         }
 
-        public Player GetById(Guid id)
+        public Player GetById(Guid id, DateOnly? newerthen)
         {
-
-            var player = _dbContext.Players.Include(x=>x.TrainingAttendances).Include(x=>x.PlayerMeasurements).FirstOrDefault(x => x.Id == id);
+            var player = _dbContext.Players.Include(x => x.TrainingAttendances).Include(x => x.PlayerMeasurements).FirstOrDefault(x => x.Id == id);
 
             if (player == null)
             {
                 return null!;
+            }
+
+            if (newerthen.HasValue)
+            {
+                player.TrainingAttendances = player.TrainingAttendances.Where(x => x.Date > newerthen).ToList();
             }
 
             return player;
