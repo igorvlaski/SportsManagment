@@ -41,9 +41,9 @@ namespace SportsManagment.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetPlayerById")]
-        public ActionResult<Player> GetById(Guid id, DateOnly? newerthen)
+        public ActionResult<Player> GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements)
         {
-            var result = _playerService.GetById(id, newerthen);
+            var result = _playerService.GetById(id, newerthen, includePlayerMeasurements);
             if (result == null)
             {
                 return NotFound("This player is not on the roster.");

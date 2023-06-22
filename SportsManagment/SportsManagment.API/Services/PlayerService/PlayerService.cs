@@ -38,18 +38,25 @@ namespace SportsManagment.API.Services.PlayerService
             return _dbContext.Players.ToList();
         }
 
-        public Player GetById(Guid id, DateOnly? newerthen)
+        public Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements)
         {
-            var player = _dbContext.Players.Include(x => x.TrainingAttendances).Include(x => x.PlayerMeasurements).FirstOrDefault(x => x.Id == id);
+            IQueryable<Player> players = _dbContext.Players;
 
-            if (player == null)
+            if (includePlayerMeasurements)
             {
-                return null!;
+                players = players.Include(x => x.PlayerMeasurements);
             }
 
             if (newerthen.HasValue)
             {
-                player.TrainingAttendances = player.TrainingAttendances.Where(x => x.Date > newerthen).ToList();
+                players = players.Include(x => x.TrainingAttendances.Where(x => x.Date > newerthen));
+            }
+
+            var player = players.FirstOrDefault(x => x.Id == id);
+
+            if (player == null)
+            {
+                return null!;
             }
 
             return player;
