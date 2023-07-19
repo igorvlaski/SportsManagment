@@ -1,11 +1,10 @@
-﻿namespace SportsManagment.API.Services.PlayerService
+﻿namespace SportsManagment.API.Services.PlayerService;
+
+public interface IPlayerService
 {
-    public interface IPlayerService
-    {
-        List<Player> GetAll();
-        Guid Create(Player player);
-        bool Delete(Guid id);
-        Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements);
-        Player Update(Guid id, Player updatePlayer);
-    }
+    List<Player> GetAll();
+    Guid Create(Player player);
+    bool Delete(Guid id);
+    Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements);
+    Player Update(Guid id, Player updatePlayer);
 }

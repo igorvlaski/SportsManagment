@@ -61,7 +61,5 @@ namespace SportsManagment.API.Controllers
             }
             return Ok(result);
         }
-
-
     }
 }

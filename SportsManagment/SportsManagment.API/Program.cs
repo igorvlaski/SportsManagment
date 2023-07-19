@@ -4,6 +4,7 @@ global using SportsManagment.API.Domain;
 using SportsManagment.API.Services.TrainingAttendanceService;
 using SportsManagment.API.Services.PlayerMeasurementService;
 using SportsManagment.API.Services.MeasurementInformationService;
+using SportsManagment.API.Services.SelectionService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<ITrainingAttendanceService, TrainingAttendanceService>();
 builder.Services.AddScoped<IPlayerMeasurementService, PlayerMeasurementService>();
 builder.Services.AddScoped<IMeasurementInformationService, MeasurementInformationService>();
+builder.Services.AddScoped<ISelectionService, SelectionService>();
 builder.Services.AddDbContext<SportsManagmentDbContext>(optionsAction => {
     optionsAction.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"));
 });
