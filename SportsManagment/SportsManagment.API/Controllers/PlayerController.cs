@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SportsManagment.API.DTOs;
 
 namespace SportsManagment.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace SportsManagment.API.Controllers
         }
 
         [HttpPost(Name = "CreateAPlayer")]
-        public ActionResult<Guid> Create(Player player)
+        public ActionResult<Guid> Create(CreatePlayerDTO player)
         {
             var playerId = _playerService.Create(player);
 
@@ -32,8 +33,8 @@ namespace SportsManagment.API.Controllers
         [HttpDelete("{id}", Name = "DeleteAPlayer")]
         public ActionResult Delete(Guid id)
         {
-            var result = _playerService.Delete(id);
-            if (result == false)
+            var player = _playerService.Delete(id);
+            if (player == false)
             {
                 return NotFound("This player is not on the roster.");
             }
@@ -43,23 +44,35 @@ namespace SportsManagment.API.Controllers
         [HttpGet("{id}", Name = "GetPlayerById")]
         public ActionResult<Player> GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements)
         {
-            var result = _playerService.GetById(id, newerthen, includePlayerMeasurements);
-            if (result == null)
+            var player = _playerService.GetById(id, newerthen, includePlayerMeasurements);
+            if (player == null)
             {
                 return NotFound("This player is not on the roster.");
             }
-            return Ok(result);
+            return Ok(player);
         }
 
         [HttpPut("{id}", Name = "UpdatePlayer")]
-        public ActionResult<Player> Update(Guid id, Player updatePlayer)
+        public ActionResult<Player> Update(Guid id, UpdatePlayerDTO updatePlayer)
         {
-            var result = _playerService.Update(id, updatePlayer);
-            if (result == null)
+            var player = _playerService.Update(id, updatePlayer);
+            if (player == null)
             {
                 return NotFound("This player is not on the roster.");
             }
-            return Ok(result);
+            return Ok(player);
+        }
+
+        [HttpPatch("{playerId}/selection/{selectionId}", Name = "AddOrRemovePlayerFromSelection")]
+        public ActionResult<bool> AddOrRemovePlayerFromSelection(Guid playerId, Guid selectionId)
+        {
+            var player = _playerService.AddOrRemovePlayerFromSelection(playerId, selectionId);
+            if (!player)
+            {
+                return BadRequest("This player or selection does not exist.");
+            }
+
+            return Ok(true);
         }
     }
 }

@@ -5,12 +5,17 @@ using SportsManagment.API.Services.TrainingAttendanceService;
 using SportsManagment.API.Services.PlayerMeasurementService;
 using SportsManagment.API.Services.MeasurementInformationService;
 using SportsManagment.API.Services.SelectionService;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -19,7 +24,8 @@ builder.Services.AddScoped<ITrainingAttendanceService, TrainingAttendanceService
 builder.Services.AddScoped<IPlayerMeasurementService, PlayerMeasurementService>();
 builder.Services.AddScoped<IMeasurementInformationService, MeasurementInformationService>();
 builder.Services.AddScoped<ISelectionService, SelectionService>();
-builder.Services.AddDbContext<SportsManagmentDbContext>(optionsAction => {
+builder.Services.AddDbContext<SportsManagmentDbContext>(optionsAction =>
+{
     optionsAction.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"));
 });
 
