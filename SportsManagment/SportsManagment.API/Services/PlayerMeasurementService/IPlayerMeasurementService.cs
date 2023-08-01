@@ -1,12 +1,11 @@
-﻿namespace SportsManagment.API.Services.PlayerMeasurementService
+﻿namespace SportsManagment.API.Services.PlayerMeasurementService;
+
+public interface IPlayerMeasurementService
 {
-    public interface IPlayerMeasurementService
-    {
-        List<PlayerMeasurement> GetAll();
-        Guid Create(PlayerMeasurement playerMeasurement);
-        PlayerMeasurement GetById(Guid id);
-        bool Delete(Guid id);
-        PlayerMeasurement Update(Guid id, PlayerMeasurement updatePlayerMeasurement);
-        List<PlayerMeasurement> GetAllPlayerMeasurementsByPlayerId(Guid playerId);
-    }
+    List<PlayerMeasurement> GetAll();
+    Guid Create(PlayerMeasurement playerMeasurement);
+    PlayerMeasurement GetById(Guid id);
+    bool Delete(Guid id);
+    PlayerMeasurement Update(Guid id, PlayerMeasurement updatePlayerMeasurement);
+    List<PlayerMeasurement> GetAllPlayerMeasurementsByPlayerId(Guid playerId);
 }

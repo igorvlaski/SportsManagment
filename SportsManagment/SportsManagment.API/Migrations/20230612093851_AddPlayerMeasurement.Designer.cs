@@ -9,171 +9,170 @@ using SportsManagment.API.Data;
 
 #nullable disable
 
-namespace SportsManagment.API.Migrations
+namespace SportsManagment.API.Migrations;
+
+[DbContext(typeof(SportsManagmentDbContext))]
+[Migration("20230612093851_AddPlayerMeasurement")]
+partial class AddPlayerMeasurement
 {
-    [DbContext(typeof(SportsManagmentDbContext))]
-    [Migration("20230612093851_AddPlayerMeasurement")]
-    partial class AddPlayerMeasurement
+    /// <inheritdoc />
+    protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+        modelBuilder
+            .HasAnnotation("ProductVersion", "7.0.5")
+            .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+        NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SportsManagment.API.Domain.MeasurementDate", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+        modelBuilder.Entity("SportsManagment.API.Domain.MeasurementDate", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("Date")
-                        .HasColumnType("timestamp with time zone");
+                b.Property<DateTime?>("Date")
+                    .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("MeasurementDate");
-                });
+                b.ToTable("MeasurementDate");
+            });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.Player", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+        modelBuilder.Entity("SportsManagment.API.Domain.Player", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uuid");
 
-                    b.Property<DateOnly>("DateOfBirth")
-                        .HasColumnType("date");
+                b.Property<DateOnly>("DateOfBirth")
+                    .HasColumnType("date");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("text");
+                b.Property<string>("FirstName")
+                    .HasColumnType("text");
 
-                    b.Property<bool>("IsMonthlyFeePaid")
-                        .HasColumnType("boolean");
+                b.Property<bool>("IsMonthlyFeePaid")
+                    .HasColumnType("boolean");
 
-                    b.Property<bool>("IsYearlyFeePaid")
-                        .HasColumnType("boolean");
+                b.Property<bool>("IsYearlyFeePaid")
+                    .HasColumnType("boolean");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("text");
+                b.Property<string>("LastName")
+                    .HasColumnType("text");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Players");
-                });
+                b.ToTable("Players");
+            });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.PlayerMeasurement", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+        modelBuilder.Entity("SportsManagment.API.Domain.PlayerMeasurement", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uuid");
 
-                    b.Property<double>("AgilityTest505")
-                        .HasColumnType("double precision");
+                b.Property<double>("AgilityTest505")
+                    .HasColumnType("double precision");
 
-                    b.Property<double>("ArmSpan")
-                        .HasColumnType("double precision");
+                b.Property<double>("ArmSpan")
+                    .HasColumnType("double precision");
 
-                    b.Property<double>("BeepTest")
-                        .HasColumnType("double precision");
+                b.Property<double>("BeepTest")
+                    .HasColumnType("double precision");
 
-                    b.Property<double>("HandSpan")
-                        .HasColumnType("double precision");
+                b.Property<double>("HandSpan")
+                    .HasColumnType("double precision");
 
-                    b.Property<double>("Height")
-                        .HasColumnType("double precision");
+                b.Property<double>("Height")
+                    .HasColumnType("double precision");
 
-                    b.Property<Guid>("MeasurementDateId")
-                        .HasColumnType("uuid");
+                b.Property<Guid>("MeasurementDateId")
+                    .HasColumnType("uuid");
 
-                    b.Property<Guid>("PlayerId")
-                        .HasColumnType("uuid");
+                b.Property<Guid>("PlayerId")
+                    .HasColumnType("uuid");
 
-                    b.Property<double>("ShoeSize")
-                        .HasColumnType("double precision");
+                b.Property<double>("ShoeSize")
+                    .HasColumnType("double precision");
 
-                    b.Property<double>("SitAndReach")
-                        .HasColumnType("double precision");
+                b.Property<double>("SitAndReach")
+                    .HasColumnType("double precision");
 
-                    b.Property<double>("Skinfold")
-                        .HasColumnType("double precision");
+                b.Property<double>("Skinfold")
+                    .HasColumnType("double precision");
 
-                    b.Property<double>("Sprint20m")
-                        .HasColumnType("double precision");
+                b.Property<double>("Sprint20m")
+                    .HasColumnType("double precision");
 
-                    b.Property<double>("VerticalJump")
-                        .HasColumnType("double precision");
+                b.Property<double>("VerticalJump")
+                    .HasColumnType("double precision");
 
-                    b.Property<double>("Weight")
-                        .HasColumnType("double precision");
+                b.Property<double>("Weight")
+                    .HasColumnType("double precision");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("MeasurementDateId");
+                b.HasIndex("MeasurementDateId");
 
-                    b.HasIndex("PlayerId");
+                b.HasIndex("PlayerId");
 
-                    b.ToTable("PlayerMeasurements");
-                });
+                b.ToTable("PlayerMeasurements");
+            });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.TrainingAttendance", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+        modelBuilder.Entity("SportsManagment.API.Domain.TrainingAttendance", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("uuid");
 
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
+                b.Property<DateOnly>("Date")
+                    .HasColumnType("date");
 
-                    b.Property<Guid>("PlayerId")
-                        .HasColumnType("uuid");
+                b.Property<Guid>("PlayerId")
+                    .HasColumnType("uuid");
 
-                    b.Property<int>("Selection")
-                        .HasColumnType("integer");
+                b.Property<int>("Selection")
+                    .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("PlayerId");
+                b.HasIndex("PlayerId");
 
-                    b.ToTable("TrainingAttendances");
-                });
+                b.ToTable("TrainingAttendances");
+            });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.PlayerMeasurement", b =>
-                {
-                    b.HasOne("SportsManagment.API.Domain.MeasurementDate", "MeasurementDate")
-                        .WithMany()
-                        .HasForeignKey("MeasurementDateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+        modelBuilder.Entity("SportsManagment.API.Domain.PlayerMeasurement", b =>
+            {
+                b.HasOne("SportsManagment.API.Domain.MeasurementDate", "MeasurementDate")
+                    .WithMany()
+                    .HasForeignKey("MeasurementDateId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("SportsManagment.API.Domain.Player", null)
-                        .WithMany("PlayerMeasurement")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                b.HasOne("SportsManagment.API.Domain.Player", null)
+                    .WithMany("PlayerMeasurement")
+                    .HasForeignKey("PlayerId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("MeasurementDate");
-                });
+                b.Navigation("MeasurementDate");
+            });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.TrainingAttendance", b =>
-                {
-                    b.HasOne("SportsManagment.API.Domain.Player", null)
-                        .WithMany("TrainingAttendances")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+        modelBuilder.Entity("SportsManagment.API.Domain.TrainingAttendance", b =>
+            {
+                b.HasOne("SportsManagment.API.Domain.Player", null)
+                    .WithMany("TrainingAttendances")
+                    .HasForeignKey("PlayerId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.Player", b =>
-                {
-                    b.Navigation("PlayerMeasurement");
+        modelBuilder.Entity("SportsManagment.API.Domain.Player", b =>
+            {
+                b.Navigation("PlayerMeasurement");
 
-                    b.Navigation("TrainingAttendances");
-                });
+                b.Navigation("TrainingAttendances");
+            });
 #pragma warning restore 612, 618
-        }
     }
 }

@@ -1,72 +1,71 @@
 ﻿using SportsManagment.API.Domain;
 
-namespace SportsManagment.API.Services.SelectionService
+namespace SportsManagment.API.Services.SelectionService;
+
+public class SelectionService : ISelectionService
 {
-    public class SelectionService : ISelectionService
+    private readonly SportsManagmentDbContext _dbContext;
+    public SelectionService(SportsManagmentDbContext dbContext)
     {
-        private readonly SportsManagmentDbContext _dbContext;
-        public SelectionService(SportsManagmentDbContext dbContext)
+        _dbContext = dbContext;
+    }
+
+    public Guid Create(Selection selection)
+    {
+        selection.Id = Guid.NewGuid();
+        _dbContext.Selections.Add(selection);
+        _dbContext.SaveChanges();
+        return selection.Id;
+    }
+
+    public bool Delete(Guid id)
+    {
+
+        var selection = _dbContext.Selections.FirstOrDefault(x => x.Id == id);
+
+        if (selection == null)
         {
-            _dbContext = dbContext;
+            return false;
         }
 
-        public Guid Create(Selection selection)
+        _dbContext.Selections.Remove(selection);
+        _dbContext.SaveChanges();
+
+        return true;
+    }
+
+    public List<Selection> GetAll() 
+    {
+        return _dbContext.Selections.ToList();
+    }
+
+    public Selection GetById(Guid id)
+    {
+
+        var selection = _dbContext.Selections.FirstOrDefault(x => x.Id == id);
+
+        if (selection == null)
         {
-            selection.Id = Guid.NewGuid();
-            _dbContext.Selections.Add(selection);
-            _dbContext.SaveChanges();
-            return selection.Id;
+            return null!;
         }
 
-        public bool Delete(Guid id)
+        return selection;
+    }
+
+    public Selection Update(Guid id, Selection updateSelection)
+    {
+
+        var selection = _dbContext.Selections.FirstOrDefault(x => x.Id == id);
+
+        if (selection == null)
         {
-
-            var selection = _dbContext.Selections.FirstOrDefault(x => x.Id == id);
-
-            if (selection == null)
-            {
-                return false;
-            }
-
-            _dbContext.Selections.Remove(selection);
-            _dbContext.SaveChanges();
-
-            return true;
+            return null!;
         }
 
-        public List<Selection> GetAll() 
-        {
-            return _dbContext.Selections.ToList();
-        }
+        selection.SelectionName = updateSelection.SelectionName;
 
-        public Selection GetById(Guid id)
-        {
+        _dbContext.SaveChanges();
 
-            var selection = _dbContext.Selections.FirstOrDefault(x => x.Id == id);
-
-            if (selection == null)
-            {
-                return null!;
-            }
-
-            return selection;
-        }
-
-        public Selection Update(Guid id, Selection updateSelection)
-        {
-
-            var selection = _dbContext.Selections.FirstOrDefault(x => x.Id == id);
-
-            if (selection == null)
-            {
-                return null!;
-            }
-
-            selection.SelectionName = updateSelection.SelectionName;
-
-            _dbContext.SaveChanges();
-
-            return selection;
-        }
+        return selection;
     }
 }

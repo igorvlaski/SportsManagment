@@ -1,11 +1,10 @@
-﻿namespace SportsManagment.API.Services.SelectionService
+﻿namespace SportsManagment.API.Services.SelectionService;
+
+public interface ISelectionService
 {
-    public interface ISelectionService
-    {
-        List<Selection> GetAll();
-        Guid Create(Selection selection);
-        bool Delete(Guid id);
-        Selection GetById(Guid id);
-        Selection Update(Guid id, Selection updateSelection);
-    }
+    List<Selection> GetAll();
+    Guid Create(Selection selection);
+    bool Delete(Guid id);
+    Selection GetById(Guid id);
+    Selection Update(Guid id, Selection updateSelection);
 }
