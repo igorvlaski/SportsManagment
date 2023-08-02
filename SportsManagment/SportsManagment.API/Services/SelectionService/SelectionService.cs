@@ -1,4 +1,5 @@
 ﻿using SportsManagment.API.Domain;
+using SportsManagment.API.DTOs;
 
 namespace SportsManagment.API.Services.SelectionService;
 
@@ -10,9 +11,14 @@ public class SelectionService : ISelectionService
         _dbContext = dbContext;
     }
 
-    public Guid Create(Selection selection)
+    public Guid Create(CreateSelectionDTO selectionToCreate)
     {
-        selection.Id = Guid.NewGuid();
+        var selection = new Selection
+        {
+            Id = Guid.NewGuid(),
+            SelectionName = selectionToCreate.SelectionName,
+            Description = selectionToCreate.Description,
+        };
         _dbContext.Selections.Add(selection);
         _dbContext.SaveChanges();
         return selection.Id;
@@ -52,7 +58,7 @@ public class SelectionService : ISelectionService
         return selection;
     }
 
-    public Selection Update(Guid id, Selection updateSelection)
+    public Selection Update(Guid id, UpdateSelectionDTO updateSelection)
     {
 
         var selection = _dbContext.Selections.FirstOrDefault(x => x.Id == id);
@@ -63,6 +69,7 @@ public class SelectionService : ISelectionService
         }
 
         selection.SelectionName = updateSelection.SelectionName;
+        selection.Description = updateSelection.Description;
 
         _dbContext.SaveChanges();
 

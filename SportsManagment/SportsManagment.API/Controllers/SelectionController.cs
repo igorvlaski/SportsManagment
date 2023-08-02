@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SportsManagment.API.DTOs;
 using SportsManagment.API.Services.SelectionService;
 
 namespace SportsManagment.API.Controllers;
@@ -21,7 +22,7 @@ public class SelectionController : ControllerBase
     }
 
     [HttpPost(Name = "CreateASelection")]
-    public ActionResult<Guid> Create(Selection selection)
+    public ActionResult<Guid> Create(CreateSelectionDTO selection)
     {
         var selectionId = _selectionService.Create(selection);
 
@@ -51,7 +52,7 @@ public class SelectionController : ControllerBase
     }
 
     [HttpPut("{id}", Name = "UpdateSelection")]
-    public ActionResult<Selection> Update(Guid id, Selection updateSelection)
+    public ActionResult<Selection> Update(Guid id, UpdateSelectionDTO updateSelection)
     {
         var selectionId = _selectionService.Update(id, updateSelection);
         if (selectionId == null)

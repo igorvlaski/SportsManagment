@@ -1,10 +1,12 @@
-﻿namespace SportsManagment.API.Services.SelectionService;
+﻿using SportsManagment.API.DTOs;
+
+namespace SportsManagment.API.Services.SelectionService;
 
 public interface ISelectionService
 {
     List<Selection> GetAll();
-    Guid Create(Selection selection);
+    Guid Create(CreateSelectionDTO selection);
     bool Delete(Guid id);
     Selection GetById(Guid id);
-    Selection Update(Guid id, Selection updateSelection);
+    Selection Update(Guid id, UpdateSelectionDTO updateSelection);
 }
