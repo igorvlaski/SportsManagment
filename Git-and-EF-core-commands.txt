@@ -1,19 +1,20 @@
 Git-and-EF-core-commands
 
 Git:
-git checkout -b {ime brancha}  : new branch
-git checkout {ime brancha} : 
-git branch -m feature/create-project  : rename branch
+git checkout {ime brancha} : vsestranski ukaz v gitu, za prehajanje med vejami, ustvarjanje novih vej in ponovno (restore) "vračanje" datotek na določen commit ali vejo
+git checkout -b {ime brancha}  : nov branch
+git branch -m feature/create-project  : preimenuj branch
 git clone : kloniraš celoten repository iz spletnega gita
 git pull : potegni zadnjo verzijo brancha na katerem si iz "spletnega" gita
 git status :preveriš status gita
 git add . : stage vse file za commit
 git add [file] : stage določen file za commit
 git commit : commit file zapiše datoteko lokalno
-git stash :  Spravi spremembe v "umazan" delavni directory
+git stash :  začasno shrani spremembe, ki še niso pripravljene za commit. Omogoči menjavo vej brez izgube podatkov, ker so začasno spravljeni. Do podatkov lahko kasneje dostopamo z ukazom git stash pop. Seveda spet na pravi veji.
 git push : push file na "spletni" git
-git merge : združimo več različnih sekvenc commitov, shranjenih na različnih brancih
-git rebase : preprosto spremenite vrsto zavez in spremenite zgodovino vašega skladišča. Zaveze lahko prerazporedite, uredite ali squash storite skupaj.
+git merge : ukaz, ki omogoči združevanje dveh vej, z ustvarjanjem novega commita na ciljni veji. Nov commit vsebuje podatke iz obeh vej. Največkrat se uporablja za dodajanje posodobitev iz podružnične veje na glavno vejo.
+
+git rebase : ukaz, ki omogocči integracijo sprememb iz ene veje v drugo z razičnimi operacijami: premikanje, združevanje ali spreminjanje zgodovine commitov. Omogoča lepšo, bolj linearno zgodovino. Vendar pa lahko povzroči konflikte in prepisovanje zgodovine, še posebej, če na projektu sodeluje več avtorjev.
  
 
 EF:
