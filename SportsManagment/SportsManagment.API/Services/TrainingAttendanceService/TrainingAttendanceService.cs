@@ -68,7 +68,6 @@ public class TrainingAttendanceService : ITrainingAttendanceService
             return null!;
         }
 
-        trainingAttendance.Selection = updateTrainingAttendance.Selection;
         trainingAttendance.Date = updateTrainingAttendance.Date;
 
         _dbContext.SaveChanges();

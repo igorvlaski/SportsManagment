@@ -1,12 +1,10 @@
 ﻿namespace SportsManagment.API.Domain;
 
-public enum Selection 
+public class Selection
 {
-    U10,
-    U12,
-    U14,
-    U16,
-    U18,
-    U20,
-    Senior
+    public Guid Id { get; set; }
+    public string? SelectionName { get; set; }
+    public string? Description { get; set; }
+    public List<TrainingAttendance> TrainingAttendances { get; set; } = new List<TrainingAttendance>();
+    public List<Player> Players { get; set; } = new List<Player>();
 }

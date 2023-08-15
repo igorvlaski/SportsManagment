@@ -6,7 +6,7 @@ public class TrainingAttendance
 
     public DateOnly Date { get; set; }
 
-    public Selection Selection { get; set; }
+    public Guid SelectionId{ get; set; }
 
     public Guid PlayerId { get; set; }
 }

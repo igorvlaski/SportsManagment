@@ -1,11 +1,10 @@
-﻿namespace SportsManagment.API.Services.MeasurementInformationService
+﻿namespace SportsManagment.API.Services.MeasurementInformationService;
+
+public interface IMeasurementInformationService
 {
-    public interface IMeasurementInformationService
-    {
-        List<MeasurementInformation> GetAll();
-        Guid Create(MeasurementInformation measurementInformation);
-        MeasurementInformation GetById(Guid id);
-        bool Delete(Guid id);
-        MeasurementInformation Update(Guid id, MeasurementInformation updateMeasurementInformation);
-    }
+    List<MeasurementInformation> GetAll();
+    Guid Create(MeasurementInformation measurementInformation);
+    MeasurementInformation GetById(Guid id);
+    bool Delete(Guid id);
+    MeasurementInformation Update(Guid id, MeasurementInformation updateMeasurementInformation);
 }
