@@ -1,0 +1,25 @@
+Git-and-EF-core-commands
+
+Git:
+git checkout -b {ime brancha}  : new branch
+git checkout {ime brancha} : 
+git branch -m feature/create-project  : rename branch
+git clone : kloniraš celoten repository iz spletnega gita
+git pull : potegni zadnjo verzijo brancha na katerem si iz "spletnega" gita
+git status :preveriš status gita
+git add . : stage vse file za commit
+git add [file] : stage določen file za commit
+git commit : commit file zapiše datoteko lokalno
+git stash :  Spravi spremembe v "umazan" delavni directory
+git push : push file na "spletni" git
+git merge : združimo več različnih sekvenc commitov, shranjenih na različnih brancih
+git rebase : preprosto spremenite vrsto zavez in spremenite zgodovino vašega skladišča. Zaveze lahko prerazporedite, uredite ali squash storite skupaj.
+ 
+
+EF:
+dotnet ef : poda osnovne informacije ef
+dotnet ef migrations add [AddImeMigracije] : doda novo migracijo podatkovne baze
+dotnet ef database update [imeMigracije] : posodobi podatkovno bazo na določeno migracijo
+dotnet ef migrations remove : odstrani zadnjo migracijo - zato je predhodno potrebna posodobitev na predhodno migracijo
+dotnet ef database drop : zbriše (dropa) podatkovno bazo
+
