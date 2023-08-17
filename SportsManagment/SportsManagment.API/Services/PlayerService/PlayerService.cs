@@ -18,6 +18,11 @@ public class PlayerService : IPlayerService
             FirstName = playerToCreate.FirstName,
             LastName = playerToCreate.LastName,
             DateOfBirth = playerToCreate.DateOfBirth,
+            Email = playerToCreate.Email,
+            PhoneNumber = playerToCreate.PhoneNumber,
+            Address = playerToCreate.Address,
+            ParentName = playerToCreate.ParentName,
+            ParentPhoneNumber = playerToCreate.ParentPhoneNumber,
             IsMonthlyFeePaid = playerToCreate.IsMonthlyFeePaid,
             IsYearlyFeePaid = playerToCreate.IsYearlyFeePaid
         };
@@ -84,6 +89,11 @@ public class PlayerService : IPlayerService
         player.FirstName = updatePlayer.FirstName;
         player.LastName = updatePlayer.LastName;
         player.DateOfBirth = updatePlayer.DateOfBirth;
+        player.Email = updatePlayer.Email;
+        player.Address = updatePlayer.Address;
+        player.PhoneNumber = updatePlayer.PhoneNumber;
+        player.ParentName = updatePlayer.ParentName;
+        player.ParentPhoneNumber = updatePlayer.ParentPhoneNumber;
         player.IsMonthlyFeePaid = updatePlayer.IsMonthlyFeePaid;
         player.IsYearlyFeePaid = updatePlayer.IsYearlyFeePaid;
         _dbContext.SaveChanges();
