@@ -1,5 +1,4 @@
-﻿using SportsManagment.API.Domain;
-using SportsManagment.API.DTOs;
+﻿using SportsManagment.API.DTOs;
 
 namespace SportsManagment.API.Services.SelectionService;
 

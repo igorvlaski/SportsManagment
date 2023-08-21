@@ -1,5 +1,4 @@
-﻿using SportsManagment.API.Domain;
-using SportsManagment.API.DTOs;
+﻿using SportsManagment.API.DTOs;
 
 namespace SportsManagment.API.Services.PlayerService;
 
@@ -18,8 +17,11 @@ public class PlayerService : IPlayerService
             FirstName = playerToCreate.FirstName,
             LastName = playerToCreate.LastName,
             DateOfBirth = playerToCreate.DateOfBirth,
-            IsMonthlyFeePaid = playerToCreate.IsMonthlyFeePaid,
-            IsYearlyFeePaid = playerToCreate.IsYearlyFeePaid
+            Email = playerToCreate.Email,
+            PhoneNumber = playerToCreate.PhoneNumber,
+            Address = playerToCreate.Address,
+            ParentName = playerToCreate.ParentName,
+            ParentPhoneNumber = playerToCreate.ParentPhoneNumber,
         };
         _dbContext.Players.Add(player);
         _dbContext.SaveChanges();
@@ -47,7 +49,7 @@ public class PlayerService : IPlayerService
         return _dbContext.Players.ToList();
     }
 
-    public Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements)
+    public Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements, bool includePaymentInformations)
     {
         IQueryable<Player> players = _dbContext.Players;
 
@@ -59,6 +61,11 @@ public class PlayerService : IPlayerService
         if (newerthen.HasValue)
         {
             players = players.Include(x => x.TrainingAttendances.Where(x => x.Date > newerthen));
+        }
+
+        if (includePaymentInformations)
+        {
+            players = players.Include(x => x.PaymentInformations);
         }
 
         var player = players.FirstOrDefault(x => x.Id == id);
@@ -84,8 +91,12 @@ public class PlayerService : IPlayerService
         player.FirstName = updatePlayer.FirstName;
         player.LastName = updatePlayer.LastName;
         player.DateOfBirth = updatePlayer.DateOfBirth;
-        player.IsMonthlyFeePaid = updatePlayer.IsMonthlyFeePaid;
-        player.IsYearlyFeePaid = updatePlayer.IsYearlyFeePaid;
+        player.Email = updatePlayer.Email;
+        player.Address = updatePlayer.Address;
+        player.PhoneNumber = updatePlayer.PhoneNumber;
+        player.ParentName = updatePlayer.ParentName;
+        player.ParentPhoneNumber = updatePlayer.ParentPhoneNumber;
+
         _dbContext.SaveChanges();
 
         return player;

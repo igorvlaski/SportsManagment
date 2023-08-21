@@ -42,9 +42,9 @@ public class PlayerController : ControllerBase
     }
 
     [HttpGet("{id}", Name = "GetPlayerById")]
-    public ActionResult<Player> GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements)
+    public ActionResult<Player> GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements, bool includePaymentInformations)
     {
-        var player = _playerService.GetById(id, newerthen, includePlayerMeasurements);
+        var player = _playerService.GetById(id, newerthen, includePlayerMeasurements, includePaymentInformations);
         if (player == null)
         {
             return NotFound("This player is not on the roster.");

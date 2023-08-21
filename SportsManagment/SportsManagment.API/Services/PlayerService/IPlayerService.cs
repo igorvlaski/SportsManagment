@@ -7,7 +7,7 @@ public interface IPlayerService
     List<Player> GetAll();
     Guid Create(CreatePlayerDTO player);
     bool Delete(Guid id);
-    Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements);
+    Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements, bool includePaymentInformations);
     Player Update(Guid id, UpdatePlayerDTO updatePlayer);
     bool AddOrRemovePlayerFromSelection(Guid playerId, Guid selectionId);
 }

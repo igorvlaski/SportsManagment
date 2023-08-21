@@ -7,7 +7,5 @@ public class MeasurementInformation
     public string? Description { get; set; }
     public string? Name { get; set; }
     public string? Location { get; set; }
-
     public List<PlayerMeasurement> PlayerMeasurements { get; set; } = new List<PlayerMeasurement>();
-
 }

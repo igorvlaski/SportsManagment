@@ -6,6 +6,7 @@ using SportsManagment.API.Services.PlayerMeasurementService;
 using SportsManagment.API.Services.MeasurementInformationService;
 using SportsManagment.API.Services.SelectionService;
 using System.Text.Json.Serialization;
+using SportsManagment.API.Services.PaymentInformationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ builder.Services.AddScoped<ITrainingAttendanceService, TrainingAttendanceService
 builder.Services.AddScoped<IPlayerMeasurementService, PlayerMeasurementService>();
 builder.Services.AddScoped<IMeasurementInformationService, MeasurementInformationService>();
 builder.Services.AddScoped<ISelectionService, SelectionService>();
+builder.Services.AddScoped<IPaymentInformationService, PaymentInformationService>();
+
 builder.Services.AddDbContext<SportsManagmentDbContext>(optionsAction =>
 {
     optionsAction.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"));
