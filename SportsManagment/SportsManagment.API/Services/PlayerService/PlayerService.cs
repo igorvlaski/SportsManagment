@@ -1,5 +1,4 @@
-﻿using SportsManagment.API.Domain;
-using SportsManagment.API.DTOs;
+﻿using SportsManagment.API.DTOs;
 
 namespace SportsManagment.API.Services.PlayerService;
 
@@ -23,8 +22,6 @@ public class PlayerService : IPlayerService
             Address = playerToCreate.Address,
             ParentName = playerToCreate.ParentName,
             ParentPhoneNumber = playerToCreate.ParentPhoneNumber,
-            IsMonthlyFeePaid = playerToCreate.IsMonthlyFeePaid,
-            IsYearlyFeePaid = playerToCreate.IsYearlyFeePaid
         };
         _dbContext.Players.Add(player);
         _dbContext.SaveChanges();
@@ -52,7 +49,7 @@ public class PlayerService : IPlayerService
         return _dbContext.Players.ToList();
     }
 
-    public Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements)
+    public Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements, bool includePaymentInformations)
     {
         IQueryable<Player> players = _dbContext.Players;
 
@@ -64,6 +61,11 @@ public class PlayerService : IPlayerService
         if (newerthen.HasValue)
         {
             players = players.Include(x => x.TrainingAttendances.Where(x => x.Date > newerthen));
+        }
+
+        if (includePaymentInformations)
+        {
+            players = players.Include(x => x.PaymentInformations);
         }
 
         var player = players.FirstOrDefault(x => x.Id == id);
@@ -94,8 +96,6 @@ public class PlayerService : IPlayerService
         player.PhoneNumber = updatePlayer.PhoneNumber;
         player.ParentName = updatePlayer.ParentName;
         player.ParentPhoneNumber = updatePlayer.ParentPhoneNumber;
-        player.IsMonthlyFeePaid = updatePlayer.IsMonthlyFeePaid;
-        player.IsYearlyFeePaid = updatePlayer.IsYearlyFeePaid;
         _dbContext.SaveChanges();
 
         return player;

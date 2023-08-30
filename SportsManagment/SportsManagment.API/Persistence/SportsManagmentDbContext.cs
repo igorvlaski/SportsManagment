@@ -16,4 +16,5 @@ public class SportsManagmentDbContext : DbContext
     public DbSet<PlayerMeasurement> PlayerMeasurements { get; set; }
     public DbSet<MeasurementInformation> MeasurementInformations { get; set; }
     public DbSet<Selection> Selections { get; set; }
+    public DbSet<PaymentInformation> PaymentInformations { get; set; }
 }

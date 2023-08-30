@@ -10,6 +10,4 @@ public class UpdatePlayerDTO
     public string? PhoneNumber { get; set; }
     public string? ParentName { get; set; }
     public string? ParentPhoneNumber { get; set; }
-    public bool IsMonthlyFeePaid { get; set; }
-    public bool IsYearlyFeePaid { get; set; }
 }

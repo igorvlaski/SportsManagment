@@ -8,5 +8,4 @@ public interface ITrainingAttendanceService
     TrainingAttendance GetById(Guid id);
     TrainingAttendance Update(Guid id,  TrainingAttendance updateTrainingAttendance);
     List<TrainingAttendance> GetAllTrainingAttendancesByPlayerId(Guid playerId, DateOnly? newerthen);
-
 }
