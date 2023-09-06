@@ -39,7 +39,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseWebAssemblyDebugging();
 }
+
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles();
+app.MapFallbackToFile("index.html");
 
 app.UseAuthorization();
 
