@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsManagment.API", "Spor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsManagment.Blazor.Client", "SportsManagment.Blazor.Client\SportsManagment.Blazor.Client.csproj", "{D3207A5D-18BF-4BE5-861F-71CDDCD2D5F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsManagment.Shared", "SportsManagment.Shared\SportsManagment.Shared.csproj", "{92F67CF7-4B2B-463A-A72D-873719971AAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsManagment.Shared", "SportsManagment.Shared\SportsManagment.Shared.csproj", "{92F67CF7-4B2B-463A-A72D-873719971AAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
