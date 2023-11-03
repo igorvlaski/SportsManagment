@@ -1,4 +1,7 @@
-﻿namespace SportsManagment.API.Services.MeasurementInformationService;
+﻿using SportsManagment.API.Data;
+using SportsManagment.Shared.Domain;
+
+namespace SportsManagment.API.Services.MeasurementInformationService;
 
 public class MeasurementInformationService : IMeasurementInformationService
 {

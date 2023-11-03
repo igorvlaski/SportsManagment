@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SportsManagment.Blazor.Client\SportsManagment.Blazor.Client.csproj" />
+    <ProjectReference Include="..\SportsManagment.Shared\SportsManagment.Shared.csproj" />
   </ItemGroup>
 
 </Project>

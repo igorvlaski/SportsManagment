@@ -1,6 +1,6 @@
-global using SportsManagment.API.Services.PlayerService;
-global using SportsManagment.API.Data;
-global using SportsManagment.API.Domain;
+using SportsManagment.API.Services.PlayerService;
+using SportsManagment.API.Data;
+using SportsManagment.Shared.Domain;
 using SportsManagment.API.Services.TrainingAttendanceService;
 using SportsManagment.API.Services.PlayerMeasurementService;
 using SportsManagment.API.Services.MeasurementInformationService;

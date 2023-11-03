@@ -1,4 +1,6 @@
-﻿using SportsManagment.API.DTOs;
+﻿using SportsManagment.API.Data;
+using SportsManagment.Shared.Domain;
+using SportsManagment.Shared.DTOs;
 
 namespace SportsManagment.API.Services.PlayerService;
 

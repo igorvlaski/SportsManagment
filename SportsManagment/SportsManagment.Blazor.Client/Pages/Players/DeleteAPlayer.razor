@@ -1,0 +1,22 @@
+﻿@page "/delete-player"
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+<MudPaper Elevation="1" Class="pa-4 mx-auto" Style="max-width: 500px">
+    <MudText Typo="Typo.h5">Delete Player</MudText>
+
+    <EditForm Model="this" OnValidSubmit="HandleValidSubmit">
+        <MudTextField Label="Player ID" @bind-Value="deletePlayerId" />
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error">Delete Player</MudButton>
+    </EditForm>
+</MudPaper>
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <MudAlert Severity="Severity.Success" Dense="true">@successMessage</MudAlert>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Dense="true">@errorMessage</MudAlert>
+}

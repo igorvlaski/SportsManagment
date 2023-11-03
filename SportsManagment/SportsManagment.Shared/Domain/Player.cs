@@ -1,4 +1,4 @@
-﻿namespace SportsManagment.API.Domain;
+﻿namespace SportsManagment.Shared.Domain;
 
 public class Player
 {

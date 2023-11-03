@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using SportsManagment.API.Data;
+using SportsManagment.Shared.Domain;
+using System.Linq;
 
 namespace SportsManagment.API.Services.TrainingAttendanceService;
 

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using SportsManagment.API.DTOs;
+using SportsManagment.API.Services.PlayerService;
+using SportsManagment.Shared.Domain;
+using SportsManagment.Shared.DTOs;
 
 namespace SportsManagment.API.Controllers;
 

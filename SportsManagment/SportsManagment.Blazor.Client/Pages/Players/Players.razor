@@ -1,0 +1,27 @@
+﻿@page "/players"
+
+<PageTitle>Fetch Players</PageTitle>
+
+@if (players != null && players.Any())
+{
+    <MudTable Items="players">
+        <HeaderContent>
+            <MudTh><MudTableSortLabel SortBy="new Func<Player, object>(x=>x.FirstName)">First Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Player, object>(x=>x.LastName)">Last Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<Player, object>(x=>x.DateOfBirth)">Date Of Birth</MudTableSortLabel></MudTh>
+            
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="First Name">@context.FirstName</MudTd>
+            <MudTd DataLabel="Last Name">@context.LastName</MudTd>
+            <MudTd DataLabel="Date Of Birth">@context.DateOfBirth</MudTd>
+            <MudTd DataLabel="Id">@context.Id</MudTd>
+            
+        </RowTemplate>
+    </MudTable>
+}
+else
+{
+    <MudText Typo="Typo.body1">Loading players...</MudText>
+}
+

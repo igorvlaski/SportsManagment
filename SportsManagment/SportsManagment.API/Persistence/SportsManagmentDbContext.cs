@@ -1,4 +1,5 @@
 ﻿global using Microsoft.EntityFrameworkCore;
+using SportsManagment.Shared.Domain;
 
 namespace SportsManagment.API.Data;
 
