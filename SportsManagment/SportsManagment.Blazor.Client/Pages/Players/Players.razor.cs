@@ -55,14 +55,12 @@ public partial class Players
         var response = await Http.DeleteAsync($"Player/{playerId}");
         if (response.IsSuccessStatusCode)
         {
-            // Remove the player from the list and show a success message
             players = players.Where(p => p.Id != playerId).ToList();
-            StateHasChanged(); // Refresh the UI
+            StateHasChanged();
             Snackbar.Add("Player successfuly deleted.", Severity.Warning);
         }
         else
         {
-            // Handle error scenario
             Console.WriteLine("Error deleting player");
         }
     }

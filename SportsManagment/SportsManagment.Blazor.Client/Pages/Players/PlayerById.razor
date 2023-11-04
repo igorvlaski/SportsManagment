@@ -7,7 +7,7 @@
     <MudPaper Elevation="25">
     <MudToolBar>
         <MudTooltip Text="Uredi Igralca" Arrow="true" Placement="Placement.Top">
-            <MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit"></MudIconButton>
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" Href=@($"/player/update/{player.Id}")></MudIconButton>
         </MudTooltip>
         <MudTooltip Text="Izbriši igralca" Arrow="true" Placement="Placement.Top">
             <MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"

@@ -7,7 +7,10 @@ namespace SportsManagment.Blazor.Client.Pages.Players;
 
 public partial class CreateAPlayer
 {
+    [Inject] HttpClient Http { get; set; }
+    [Inject] NavigationManager Navigation { get; set; }
     [Inject] ISnackbar Snackbar { get; set; }
+
     private CreatePlayerDTO player = new();
     private string? errorMessage;
     private DateTime? tempBirthDate = new DateTime(1988,5,6);

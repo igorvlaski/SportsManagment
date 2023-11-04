@@ -1,0 +1,34 @@
+﻿@page "/player/update/{PlayerId:guid}"
+
+@if (updatePlayer != null)
+{
+    <MudPaper Elevation="1" Class="pa-4 mx-auto" Style="max-width: 500px">
+        <MudText Typo="Typo.h5">Create a Player</MudText>
+
+        <EditForm Model="updatePlayer" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <MudTextField Label="First Name" @bind-Value="updatePlayer.FirstName" />
+            <MudTextField Label="Last Name" @bind-Value="updatePlayer.LastName" />
+            <MudDatePicker Label="Date of Birth" Editable="true" @bind-Date="tempBirthDate" DateFormat="dd.MM.yyyy" />
+            <MudTextField Label="Email" @bind-Value="updatePlayer.Email" />
+            <MudTextField Label="Address" @bind-Value="updatePlayer.Address" />
+            <MudTextField Label="Phone Number" @bind-Value="updatePlayer.PhoneNumber" />
+            <MudTextField Label="Parent Name" @bind-Value="updatePlayer.ParentName" />
+            <MudTextField Label="Parent Phone Number" @bind-Value="updatePlayer.ParentPhoneNumber" />
+
+            <MudGrid Justify="Justify.Center">
+                <MudItem>
+                    <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Posodobi</MudButton>
+                    <MudButton Href="/players" Variant="Variant.Filled" DisableElevation="true">Prekini</MudButton>
+                </MudItem>
+            </MudGrid>
+
+        </EditForm>
+    </MudPaper>
+}
+else
+{
+    <p>Loading...</p>
+}

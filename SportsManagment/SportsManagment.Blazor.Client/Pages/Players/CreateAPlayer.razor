@@ -1,29 +1,32 @@
 ﻿@page "/create-player"
-@inject HttpClient Http
-@inject NavigationManager Navigation
 
 <MudPaper Elevation="1" Class="pa-4 mx-auto" Style="max-width: 500px">
     <MudText Typo="Typo.h5">Create a Player</MudText>
 
     <EditForm Model="player" OnSubmit="HandleValidSubmit">
-        <MudTextField Label="First Name" @bind-Value="player.FirstName" For="@(() => player.FirstName)" />
-        <MudTextField Label="Last Name" @bind-Value="player.LastName" For="@(() => player.LastName)" />
+        <MudTextField Label="Ime" @bind-Value="player.FirstName" For="@(() => player.FirstName)" />
+        <MudTextField Label="Priimek" @bind-Value="player.LastName" For="@(() => player.LastName)" />
+        <MudDatePicker Label="Datum rojstva" Editable="true" @bind-Date="tempBirthDate" DateFormat="dd.MM.yyyy" />
         <MudTextField Label="Email" @bind-Value="player.Email" For="@(() => player.Email)" />
-        <MudTextField Label="Address" @bind-Value="player.Address" For="@(() => player.Address)" />
-        <MudTextField Label="Phone Number" @bind-Value="player.PhoneNumber" For="@(() => player.PhoneNumber)" />
-        <MudTextField Label="Parent Name" @bind-Value="player.ParentName" For="@(() => player.ParentName)" />
-        <MudTextField Label="Parent Phone Number" @bind-Value="player.ParentPhoneNumber" For="@(() => player.ParentPhoneNumber)" />
-        <MudDatePicker Label="Date of Birth" Editable="true" @bind-Date="tempBirthDate" DateFormat="dd.MM.yyyy" />
+        <MudTextField Label="Naslov" @bind-Value="player.Address" For="@(() => player.Address)" />
+        <MudTextField Label="Telefonska številka" @bind-Value="player.PhoneNumber" For="@(() => player.PhoneNumber)" />
+        <MudTextField Label="Ime starša" @bind-Value="player.ParentName" For="@(() => player.ParentName)" />
+        <MudTextField Label="Telefonska številka starša" @bind-Value="player.ParentPhoneNumber" For="@(() => player.ParentPhoneNumber)" />
         <br>
 
-    <MudGrid Justify="Justify.Center">
-    <MudItem>
-                <MudButton ButtonType= "ButtonType.Submit" Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary">Create Player</MudButton>
-        <MudButton Type = "Reset" Variant="Variant.Filled" DisableElevation="true" @onclick="ResetForm" >Reset Form</MudButton>
-    </MudItem>
-    </MudGrid>
+        <MudGrid Justify="Justify.Center">
+            <MudItem>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary">Ustvari igralca</MudButton>
+                <MudButton Variant="Variant.Filled" DisableElevation="true" @onclick="ResetForm">Resetiraj obrazec</MudButton>
+            </MudItem>
+        </MudGrid>
     </EditForm>
 </MudPaper>
+<br>
+<br>
+<MudGrid Justify="Justify.Center">
+    <MudButton Href="/players" Variant="Variant.Filled" Color="Color.Primary">Nazaj na vse igralce</MudButton>
+</MudGrid>
 
 @if (!string.IsNullOrEmpty(errorMessage))
 {
