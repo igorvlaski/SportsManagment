@@ -16,6 +16,7 @@ public partial class PlayerById
     [Inject] IDialogService? DialogService { get; set; }
 
     private Player? player;
+    private int activeTabIndex = 0;
     protected override async Task OnInitializedAsync()
     {
         try
@@ -45,6 +46,10 @@ public partial class PlayerById
         {
             await DeletePlayer(playerId);
         }
+        else
+        {
+            NavigationManager.NavigateTo($"/player/{playerId}?tab=0");
+        }
     }
 
     private async Task DeletePlayer(Guid playerId)
@@ -61,5 +66,10 @@ public partial class PlayerById
                             "There was an error deleting the player. Please try again later.",
                             yesText: "OK");
         }
+    }
+
+    private void GoToEditPlayer(Guid playerId)
+    {
+        NavigationManager.NavigateTo($"/player/update/{playerId}");
     }
 }

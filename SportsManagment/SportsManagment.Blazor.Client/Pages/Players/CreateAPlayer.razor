@@ -1,7 +1,7 @@
 ﻿@page "/create-player"
 
 <MudPaper Elevation="1" Class="pa-4 mx-auto" Style="max-width: 500px">
-    <MudText Typo="Typo.h5">Create a Player</MudText>
+    <MudText Typo="Typo.h5">Dodaj igralca</MudText>
 
     <EditForm Model="player" OnSubmit="HandleValidSubmit">
         <MudTextField Label="Ime" @bind-Value="player.FirstName" For="@(() => player.FirstName)" />
@@ -16,17 +16,13 @@
 
         <MudGrid Justify="Justify.Center">
             <MudItem>
-                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary">Ustvari igralca</MudButton>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" DisableElevation="true" Color="Color.Success">Dodaj igralca</MudButton>
                 <MudButton Variant="Variant.Filled" DisableElevation="true" @onclick="ResetForm">Resetiraj obrazec</MudButton>
             </MudItem>
+            <MudButton Href="/players" Variant="Variant.Filled" Color="Color.Primary">Nazaj na vse igralce</MudButton>
         </MudGrid>
     </EditForm>
 </MudPaper>
-<br>
-<br>
-<MudGrid Justify="Justify.Center">
-    <MudButton Href="/players" Variant="Variant.Filled" Color="Color.Primary">Nazaj na vse igralce</MudButton>
-</MudGrid>
 
 @if (!string.IsNullOrEmpty(errorMessage))
 {

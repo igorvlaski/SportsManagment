@@ -1,37 +1,34 @@
 ﻿@page "/players"
 
-<PageTitle>Fetch Players</PageTitle>
+<PageTitle>Vsi igralci</PageTitle>
 
 @if (players != null && players.Any())
 {
-    <MudPaper Elevation="25">
-        <MudToolBar>
+    <MudTable Items="players" Filter="FilterFunction">
+
+        <ToolBarContent>
             <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Class="mr-5" />
             <MudTooltip Text="Dodaj Igralca">
-                <MudIconButton Icon="@Icons.Material.Outlined.Add" Href="create-player" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" OnClick="@(() => GoToCreateAPlayer())" />
             </MudTooltip>
-            <MudIconButton Icon="@Icons.Material.Outlined.Edit" />
-            <MudIconButton Icon="@Icons.Material.Outlined.Remove" Color="Color.Inherit" />
-            <MudIconButton Icon="@Icons.Material.Outlined.Settings" Color="Color.Inherit" />
             <MudSpacer />
-            <MudIconButton Icon="@Icons.Material.Outlined.Notifications" />
-            <MudIconButton Icon="@Icons.Material.Outlined.PushPin" />
-            <MudIconButton Icon="@Icons.Material.Outlined.PeopleAlt" />
-            <MudIconButton Icon="@Icons.Material.Outlined.MoreVert" Color="Color.Inherit" />
-        </MudToolBar>
-    </MudPaper>
-    <br />
-    <br />
-    <MudTable Items="players">
+            <MudTextField @bind-Value="searchString" 
+                          Placeholder="Poišči igralca" 
+                          Adornment="Adornment.Start" 
+                          AdornmentIcon="@Icons.Material.Filled.Search" 
+                          IconSize="Size.Medium" 
+                          Class="mt-0"
+                          Style="margin-left: auto; width: auto; max-width: 50%;"></MudTextField>
+        </ToolBarContent>
         <HeaderContent>
             <MudTh>
-            <MudTooltip Text="Razvrsti po priimku" Arrow="true" Placement="Placement.Top">
-                <MudTableSortLabel SortBy="new Func<Player, object>(x=>x.LastName)">Ime in priimek</MudTableSortLabel>
-            </MudTooltip>
+                <MudTooltip Text="Razvrsti po priimku" Arrow="true" Placement="Placement.Top">
+                    <MudTableSortLabel SortBy="new Func<Player, object>(x=>x.LastName)">Ime in priimek</MudTableSortLabel>
+                </MudTooltip>
             </MudTh>
             <MudTh><MudTableSortLabel SortBy="new Func<Player, object>(x=>x.DateOfBirth)">Datum rojstva</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel SortBy="new Func<Player, object>(x=>x.Email)">Email</MudTableSortLabel></MudTh>
-            <MudTh>Uredi ali odstrani Igralca</MudTh>
+            <MudTh>Posodobi ali odstrani Igralca</MudTh>
 
         </HeaderContent>
 
@@ -42,20 +39,23 @@
                 <MudTd DataLabel="Date Of Birth">@context.DateOfBirth</MudTd>
                 <MudTd DataLabel="Email">@context.Email</MudTd>
 
+
                 <MudTd>
-                    <MudTooltip Text="Uredi Igralca" Arrow="true" Placement="Placement.Top">
-                        <MudIconButton Href="@($"/player/update/{context.Id}")" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                    <MudTooltip Text="Posodobi Igralca" Arrow="true" Placement="Placement.Top">
+                        <MudIconButton OnClick="@(() => GoToEditPlayer(context.Id))" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
                     </MudTooltip>
-                    <MudTooltip Text="Izbriši igralca" Arrow="true" Placement="Placement.Top">
-                        <MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"
+                    <MudTooltip Text="Odstrani igralca" Arrow="true" Placement="Placement.Top">
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete"
                                        OnClick="@(() => OpenDeleteConfirmationDialog(context.Id))"></MudIconButton>
                     </MudTooltip>
                 </MudTd>
             </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
         </MudTable>
 }
 else
 {
     <MudText Typo="Typo.body1">Loading players...</MudText>
 }
-

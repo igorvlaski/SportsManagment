@@ -30,25 +30,49 @@ public class PlayerService : IPlayerService
         return player.Id;
     }
 
-    public bool Delete(Guid id)
+    public bool HardDelete(Guid id)
     {
-
         var player = _dbContext.Players.FirstOrDefault(x => x.Id == id);
-
         if (player == null)
         {
             return false;
         }
-
         _dbContext.Players.Remove(player);
         _dbContext.SaveChanges();
+        return true;
+    }
+    public bool SoftDelete(Guid id)
+    {
+        var player = _dbContext.Players.FirstOrDefault(x => x.Id == id);
+        if (player == null || player.IsDeleted)
+        {
+            return false;
+        }
+        player.IsDeleted = true;
+        _dbContext.SaveChanges();
+        return true;
+    }
 
+    public bool Restore(Guid id)
+    {
+        var player = _dbContext.Players.FirstOrDefault(x => x.Id == id && x.IsDeleted);
+        if (player == null)
+        {
+            return false;
+        }
+        player.IsDeleted = false;
+        _dbContext.SaveChanges();
         return true;
     }
 
     public List<Player> GetAll()
     {
-        return _dbContext.Players.ToList();
+        return _dbContext.Players.Where(p => !p.IsDeleted).ToList();
+    }
+
+    public List<Player> GetDeletedPlayers()
+    {
+        return _dbContext.Players.Where(p => p.IsDeleted).ToList();
     }
 
     public Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements, bool includePaymentInformations)

@@ -19,24 +19,24 @@ public partial class CreateAPlayer
     {
         try
         {
-            Snackbar.Add("Creating Player", Severity.Info);
+            Snackbar.Add("Dodajam igralca!", Severity.Info);
             player.DateOfBirth = DateOnly.FromDateTime(tempBirthDate.Value);
             var response = await Http.PostAsJsonAsync("/Player", player);
             if (response.IsSuccessStatusCode)
             {
                 // Optionally navigate to a success page or player list
-                Snackbar.Add("Player successfuly created.", Severity.Success);
+                Snackbar.Add("Igralec uspešno dodan", Severity.Success);
                 Navigation.NavigateTo("/players");
             }
             else
             {
-                errorMessage = "Failed to create player.";
+                errorMessage = "Igralec ni bil dodan.";
                 Snackbar.Add(errorMessage, Severity.Error);
             }
         }
         catch (Exception ex)
         {
-            errorMessage = $"Error creating player: {ex.Message}";
+            errorMessage = $"Napaka pri dodajanju igralca: {ex.Message}";
             Snackbar.Add(errorMessage, Severity.Error);
         }
     }

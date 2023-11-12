@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 using SportsManagment.Shared.DTOs;
-using SportsManagment.Shared.Domain;
 using MudBlazor;
+using SportsManagment.Shared.Domain;
 
 namespace SportsManagment.Blazor.Client.Pages.Players;
 
@@ -11,7 +11,7 @@ public partial class UpdateAPlayer
     [Parameter]
     public Guid PlayerId { get; set; }
     [Inject] HttpClient Http { get; set; }
-    [Inject] NavigationManager Navigation { get; set; }
+    [Inject] NavigationManager NavigationManager { get; set; }
     [Inject] ISnackbar Snackbar { get; set; }
 
     private UpdatePlayerDTO updatePlayer;
@@ -31,6 +31,15 @@ public partial class UpdateAPlayer
         }
     }
 
+    private void GoToPlayerDetails(Guid playerId)
+    {
+        NavigationManager.NavigateTo($"/player/{playerId}");
+    }
+    private void GoToPlayers(Guid playerId)
+    {
+        NavigationManager.NavigateTo($"/players");
+    }
+
     private async Task HandleValidSubmit()
     {
         try
@@ -39,8 +48,8 @@ public partial class UpdateAPlayer
             var response = await Http.PutAsJsonAsync($"Player/{PlayerId}", updatePlayer);
             if (response.IsSuccessStatusCode)
             {
-                Snackbar.Add("Player successfully updated.", Severity.Success);
-                Navigation.NavigateTo("/players");
+                Snackbar.Add("Igralec uspešno posodobljen.", Severity.Success);
+                NavigationManager.NavigateTo($"/player/{PlayerId}");
             }
             else
             {

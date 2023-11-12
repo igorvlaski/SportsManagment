@@ -15,6 +15,8 @@ public partial class Players
     [Inject] HttpClient Http { get; set; }
 
     private List<Player>? players = new();
+    private string searchString = "";
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -30,6 +32,15 @@ public partial class Players
     {
         NavigationManager.NavigateTo($"/player/{playerId}");
     }
+    private void GoToEditPlayer(Guid playerId)
+    {
+        NavigationManager.NavigateTo($"/player/update/{playerId}");
+    }
+
+    private void GoToCreateAPlayer()
+    {
+        NavigationManager.NavigateTo("/create-player");
+    }
 
     private async Task OpenDeleteConfirmationDialog(Guid playerId)
     {
@@ -37,7 +48,7 @@ public partial class Players
         {
             ["ContentText"] = "Ali ste prepričani, da želite odstranit igralca?",
             ["ButtonText"] = "Odstrani",
-            ["Color"] = Color.Error
+            ["Color"] = Color.Success
         };
 
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
@@ -57,12 +68,28 @@ public partial class Players
         {
             players = players.Where(p => p.Id != playerId).ToList();
             StateHasChanged();
-            Snackbar.Add("Player successfuly deleted.", Severity.Warning);
+            Snackbar.Add("Igralec uspešno odstranjen!", Severity.Warning);
         }
         else
         {
-            Console.WriteLine("Error deleting player");
+            Console.WriteLine("Napaka pri odstranitvi igralca!");
         }
+    }
+
+    private bool FilterFunction(Player player)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+
+        var search = searchString.Trim();
+
+        if (player.FirstName.Contains(search, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        if (player.LastName.Contains(search, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        return false;
     }
 
 }

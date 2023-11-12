@@ -4,53 +4,56 @@
 
 @if (player != null)
 {
-    <MudPaper Elevation="25">
-    <MudToolBar>
-        <MudTooltip Text="Uredi Igralca" Arrow="true" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Filled.Edit" Href=@($"/player/update/{player.Id}")></MudIconButton>
-        </MudTooltip>
-        <MudTooltip Text="Izbriši igralca" Arrow="true" Placement="Placement.Top">
-            <MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"
-                           OnClick="@(() => OpenDeleteConfirmationDialog(player.Id))"></MudIconButton>
-        </MudTooltip>
-    </MudToolBar>
-    </MudPaper>
-    <MudPaper Class="pa-4 ma-2" Style="max-width: 400px; width: 100%;">
-        <MudList>
-            <MudListItem>
-                <MudText Typo="Typo.h6">@player.FirstName @player.LastName</MudText>
-            </MudListItem>
-            <MudListItem>
-                <MudText Typo="Typo.subtitle1">Datum rojstva:</MudText>
-                <MudText Typo="Typo.body1">@player.DateOfBirth.ToString("d")</MudText>
-            </MudListItem>
-            <MudListItem>
-                <MudText Typo="Typo.subtitle1">Email:</MudText>
-                <MudText Typo="Typo.body1">@player.Email</MudText>
-            </MudListItem>
-            <MudListItem>
-                <MudText Typo="Typo.subtitle1">Telefonska številka:</MudText>
-                <MudText Typo="Typo.body1">@player.PhoneNumber</MudText>
-            </MudListItem>
-            <MudListItem>
-                <MudText Typo="Typo.subtitle1">Naslov:</MudText>
-                <MudText Typo="Typo.body1">@player.Address</MudText>
-            </MudListItem>
-            <MudListItem>
-                <MudText Typo="Typo.subtitle1">Ime Starša:</MudText>
-                <MudText Typo="Typo.body1">@player.ParentName</MudText>
-            </MudListItem>
-            <MudListItem>
-                <MudText Typo="Typo.subtitle1">Telefonska številka starša:</MudText>
-                <MudText Typo="Typo.body1">@player.ParentPhoneNumber</MudText>
-            </MudListItem>
-        </MudList>
-    </MudPaper>
-
+    <MudTabs Elevation="4" Rounded="true" Color="@Color.Primary" ActivePanelIndex="@activeTabIndex">
+        <MudTabPanel>
+            <ChildContent>
+                <MudPaper Class="pa-4 ma-2">
+                    <MudStack Spacing="4" Justify="Justify.Center" AlignItems="AlignItems.Center">
+                        <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
+                            <MudText Typo="Typo.body1" Style="text-align: center;">Ime in Priimek:</MudText>
+                            <MudText Typo="Typo.h6" Style="text-align: center;">@player.FirstName @player.LastName</MudText>
+                        </MudStack>
+                        <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
+                            <MudText Typo="Typo.body1" Style="text-align: center;">Datum rojstva:</MudText>
+                            <MudText Typo="Typo.h6" Style="text-align: center;">@player.DateOfBirth.ToString("d")</MudText>
+                        </MudStack>
+                        <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
+                            <MudText Typo="Typo.body1" Style="text-align: center;">Email:</MudText>
+                            <MudText Typo="Typo.h6" Style="text-align: center;">@player.Email</MudText>
+                        </MudStack>
+                        <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
+                            <MudText Typo="Typo.body1" Style="text-align: center;">Telefonska številka:</MudText>
+                            <MudText Typo="Typo.h6" Style="text-align: center;">@player.PhoneNumber</MudText>
+                        </MudStack>
+                        <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
+                            <MudText Typo="Typo.body1" Style="text-align: center;">Naslov:</MudText>
+                            <MudText Typo="Typo.h6" Style="text-align: center;">@player.Address</MudText>
+                        </MudStack>
+                        <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
+                            <MudText Typo="Typo.body1" Style="text-align: center;">Ime Starša:</MudText>
+                            <MudText Typo="Typo.h6" Style="text-align: center;">@player.ParentName</MudText>
+                        </MudStack>
+                        <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
+                            <MudText Typo="Typo.body1" Style="text-align: center;">Telefonska številka starša:</MudText>
+                            <MudText Typo="Typo.h6" Style="text-align: center;">@player.ParentPhoneNumber</MudText>
+                        </MudStack>
+                    </MudStack>
+                </MudPaper>
+            </ChildContent>
+            <TabContent>Osnovne informacije</TabContent>
+        </MudTabPanel>
+        <MudTabPanel><TabContent>Prisotnosti</TabContent></MudTabPanel>
+        <MudTabPanel><TabContent>Nagrade trenerjem</TabContent></MudTabPanel>
+        <MudTabPanel><TabContent>Meritve</TabContent></MudTabPanel>
+        <MudTabPanel><TabContent>Starši/Skrbniki</TabContent></MudTabPanel>
+        <MudTabPanel Icon="@Icons.Material.Filled.Edit" Style="width: 10%;"
+                     ToolTip="Posodobi Igralca" OnClick="@(() => GoToEditPlayer(player.Id))"></MudTabPanel>
+        <MudTabPanel Icon="@Icons.Material.Filled.Delete" Style="width: 10%;"
+                     ToolTip="Odstrani Igralca" OnClick="@(() => OpenDeleteConfirmationDialog(player.Id))"></MudTabPanel>
+    </MudTabs>
 
 }
 else
 {
     <MudText Typo="Typo.body1">Loading player details...</MudText>
 }
-
