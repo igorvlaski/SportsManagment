@@ -1,32 +1,27 @@
-﻿@page "/create-player"
+﻿@page "/player"
 
 <MudPaper Elevation="1" Class="pa-4 mx-auto" Style="max-width: 500px">
     <MudText Typo="Typo.h5">Dodaj igralca</MudText>
 
-    <EditForm Model="player" OnSubmit="HandleValidSubmit">
-        <MudTextField Label="Ime" @bind-Value="player.FirstName" For="@(() => player.FirstName)" />
-        <MudTextField Label="Priimek" @bind-Value="player.LastName" For="@(() => player.LastName)" />
+    <MudForm Model="player">
+        <MudTextField Label="Ime" @bind-Value="player.FirstName"/>
+        <MudTextField Label="Priimek" @bind-Value="player.LastName"/>
         <MudDatePicker Label="Datum rojstva" Editable="true" @bind-Date="tempBirthDate" DateFormat="dd.MM.yyyy" />
-        <MudTextField Label="Email" @bind-Value="player.Email" For="@(() => player.Email)" />
-        <MudTextField Label="Naslov" @bind-Value="player.Address" For="@(() => player.Address)" />
-        <MudTextField Label="Telefonska številka" @bind-Value="player.PhoneNumber" For="@(() => player.PhoneNumber)" />
-        <MudTextField Label="Ime starša" @bind-Value="player.ParentName" For="@(() => player.ParentName)" />
-        <MudTextField Label="Telefonska številka starša" @bind-Value="player.ParentPhoneNumber" For="@(() => player.ParentPhoneNumber)" />
+        <MudTextField Label="Email" @bind-Value="player.Email"/>
+        <MudTextField Label="Naslov" @bind-Value="player.Address"/>
+        <MudTextField Label="Telefonska številka" @bind-Value="player.PhoneNumber"/>
+        <MudTextField Label="Ime starša" @bind-Value="player.ParentName"/>
+        <MudTextField Label="Telefonska številka starša" @bind-Value="player.ParentPhoneNumber"/>
         <br>
 
         <MudGrid Justify="Justify.Center">
             <MudItem>
-                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" DisableElevation="true" Color="Color.Success">Dodaj igralca</MudButton>
+                <MudButton Variant="Variant.Filled"
+                           OnClick="(async ()=> await HandleValidSubmit())"
+                           Color="Color.Success">Dodaj igralca</MudButton>
                 <MudButton Variant="Variant.Filled" DisableElevation="true" @onclick="ResetForm">Resetiraj obrazec</MudButton>
             </MudItem>
-            <MudButton Href="/players" Variant="Variant.Filled" Color="Color.Primary">Nazaj na vse igralce</MudButton>
+            <MudButton OnClick="@(() => GoToPlayers())" Variant="Variant.Filled" Color="Color.Primary">Nazaj na vse igralce</MudButton>
         </MudGrid>
-    </EditForm>
+    </MudForm>
 </MudPaper>
-
-@if (!string.IsNullOrEmpty(errorMessage))
-{
-    <MudAlert Severity="Severity.Error" Dense="true">@errorMessage</MudAlert>
-}
-
-

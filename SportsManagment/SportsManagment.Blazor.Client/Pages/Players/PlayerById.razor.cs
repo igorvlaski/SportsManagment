@@ -14,6 +14,7 @@ public partial class PlayerById
     [Inject] private HttpClient Http { get; set; }
     [Inject] NavigationManager? NavigationManager { get; set; }
     [Inject] IDialogService? DialogService { get; set; }
+    [Inject] ISnackbar Snackbar { get; set; }
 
     private Player? player;
     private int activeTabIndex = 0;
@@ -23,9 +24,9 @@ public partial class PlayerById
         {
             player = await Http.GetFromJsonAsync<Player>($"Player/{PlayerId}");
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            Console.WriteLine($"Error fetching player details: {ex.Message}");
+            Snackbar.Add("Napaka pri pridobivanju podatkov !", Severity.Error);
         }
     }
 
@@ -61,15 +62,12 @@ public partial class PlayerById
         }
         else
         {
-            await DialogService.ShowMessageBox(
-                            "Error",
-                            "There was an error deleting the player. Please try again later.",
-                            yesText: "OK");
+            Snackbar.Add("Napaka pri odstranjevanju podatkov. Prosim poskusite kasneje.", Severity.Error);
         }
     }
 
     private void GoToEditPlayer(Guid playerId)
     {
-        NavigationManager.NavigateTo($"/player/update/{playerId}");
+        NavigationManager.NavigateTo($"/player/{playerId}/update");
     }
 }

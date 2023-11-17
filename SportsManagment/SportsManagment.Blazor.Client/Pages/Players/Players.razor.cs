@@ -22,10 +22,15 @@ public partial class Players
         try
         {
             players = await Http.GetFromJsonAsync<List<Player>>("Player");
+            if (players == null || !players.Any())
+            {
+                Snackbar.Add("V podatkovni bazi ni igralcev,prosim ustvarite Igralca.", Severity.Info);
+                GoToCreateAPlayer();
+            }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            Console.WriteLine($"Error fetching players: {ex.Message}");
+            Snackbar.Add("Napaka pri pridobivanju podatkov !", Severity.Error);
         }
     }
     private void GoToPlayerDetails(Guid playerId)
@@ -34,12 +39,12 @@ public partial class Players
     }
     private void GoToEditPlayer(Guid playerId)
     {
-        NavigationManager.NavigateTo($"/player/update/{playerId}");
+        NavigationManager.NavigateTo($"/player/{playerId}/update");
     }
 
     private void GoToCreateAPlayer()
     {
-        NavigationManager.NavigateTo("/create-player");
+        NavigationManager.NavigateTo("/player");
     }
 
     private async Task OpenDeleteConfirmationDialog(Guid playerId)
@@ -66,7 +71,7 @@ public partial class Players
         var response = await Http.DeleteAsync($"Player/{playerId}");
         if (response.IsSuccessStatusCode)
         {
-            players = players.Where(p => p.Id != playerId).ToList();
+            players.RemoveAll(p => p.Id == playerId);
             StateHasChanged();
             Snackbar.Add("Igralec uspešno odstranjen!", Severity.Warning);
         }

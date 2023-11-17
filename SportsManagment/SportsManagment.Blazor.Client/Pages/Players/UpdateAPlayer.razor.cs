@@ -49,7 +49,7 @@ public partial class UpdateAPlayer
             if (response.IsSuccessStatusCode)
             {
                 Snackbar.Add("Igralec uspešno posodobljen.", Severity.Success);
-                NavigationManager.NavigateTo($"/player/{PlayerId}");
+                GoToPlayerDetails(PlayerId);
             }
             else
             {
