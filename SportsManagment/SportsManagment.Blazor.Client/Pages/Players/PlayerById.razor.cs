@@ -32,7 +32,7 @@ public partial class PlayerById
 
     private async Task ConfirmDeletePlayer(Player player)
     {
-        var result = await DialogService.Show<DeleteConfirmationDialog>("Delete Confirmation",
+        var result = await DialogService.Show<DeleteConfirmationDialog>("Potrdi odstranitev igralca",
             new DialogParameters { ["DeleteItemName"] = $"{player.FirstName} {player.LastName}" }).Result;
 
         if (!result.Canceled)
