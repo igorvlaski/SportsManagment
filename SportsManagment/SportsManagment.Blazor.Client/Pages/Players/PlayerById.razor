@@ -49,7 +49,7 @@
         <MudTabPanel Icon="@Icons.Material.Filled.Edit" Style="width: 10%;"
                      ToolTip="Posodobi Igralca" OnClick="@(() => GoToEditPlayer(player.Id))"></MudTabPanel>
         <MudTabPanel Icon="@Icons.Material.Filled.Delete" Style="width: 10%;"
-                     ToolTip="Odstrani Igralca" OnClick="@(() => OpenDeleteConfirmationDialog(player.Id))"></MudTabPanel>
+                         ToolTip="Odstrani Igralca" OnClick="@(() => ConfirmDeletePlayer(player))"></MudTabPanel>
     </MudTabs>
 
 }

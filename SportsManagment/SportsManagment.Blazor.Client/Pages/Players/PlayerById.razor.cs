@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 using SportsManagment.Shared.Domain;
 using MudBlazor;
@@ -30,26 +30,14 @@ public partial class PlayerById
         }
     }
 
-    private async Task OpenDeleteConfirmationDialog(Guid playerId)
+    private async Task ConfirmDeletePlayer(Player player)
     {
-        var parameters = new DialogParameters
-        {
-            ["ContentText"] = "Ali ste prepri?ani, da �elite odstranit igralca?",
-            ["ButtonText"] = "Odstrani",
-            ["Color"] = Color.Error
-        };
-
-        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
-        var dialog = DialogService.Show<ConfirmationDialog>("Delete Player", parameters, options);
-        var result = await dialog.Result;
+        var result = await DialogService.Show<DeleteConfirmationDialog>("Delete Confirmation",
+            new DialogParameters { ["DeleteItemName"] = $"{player.FirstName} {player.LastName}" }).Result;
 
         if (!result.Canceled)
         {
-            await DeletePlayer(playerId);
-        }
-        else
-        {
-            NavigationManager.NavigateTo($"/player/{playerId}?tab=0");
+            await DeletePlayer(player.Id);
         }
     }
 
@@ -59,6 +47,7 @@ public partial class PlayerById
         if (response.IsSuccessStatusCode)
         {
             NavigationManager.NavigateTo("/players");
+            Snackbar.Add("Igralec uspešno odstranjen!", Severity.Success);
         }
         else
         {

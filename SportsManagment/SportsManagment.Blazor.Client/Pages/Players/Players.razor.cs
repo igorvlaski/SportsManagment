@@ -47,22 +47,14 @@ public partial class Players
         NavigationManager.NavigateTo("/player");
     }
 
-    private async Task OpenDeleteConfirmationDialog(Guid playerId)
+    private async Task ConfirmDeletePlayer(Player player)
     {
-        var parameters = new DialogParameters
-        {
-            ["ContentText"] = "Ali ste prepričani, da želite odstranit igralca?",
-            ["ButtonText"] = "Odstrani",
-            ["Color"] = Color.Success
-        };
-
-        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
-        var dialog = DialogService.Show<ConfirmationDialog>("Delete Player", parameters, options);
-        var result = await dialog.Result;
+        var result = await DialogService.Show<DeleteConfirmationDialog>("Potrdi odstranitev",
+            new DialogParameters { ["DeleteItemName"] = $"{player.FirstName} {player.LastName}" }).Result;
 
         if (!result.Canceled)
         {
-            await DeletePlayer(playerId);
+            await DeletePlayer(player.Id);
         }
     }
 
@@ -73,11 +65,11 @@ public partial class Players
         {
             players.RemoveAll(p => p.Id == playerId);
             StateHasChanged();
-            Snackbar.Add("Igralec uspešno odstranjen!", Severity.Warning);
+            Snackbar.Add("Igralec uspešno odstranjen!", Severity.Success);
         }
         else
         {
-            Console.WriteLine("Napaka pri odstranitvi igralca!");
+            Snackbar.Add("Napaka pri odstranjevanju podatkov. Prosim poskusite kasneje.", Severity.Error);
         }
     }
 
