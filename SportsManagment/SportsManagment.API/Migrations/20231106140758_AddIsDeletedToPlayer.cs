@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SportsManagment.API.Migrations
 {
     /// <inheritdoc />
-    public partial class AddPaymentInformation : Migration
+    public partial class AddIsDeletedToPlayer : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,39 +15,10 @@ namespace SportsManagment.API.Migrations
                 name: "IsMonthlyFeePaid",
                 table: "Players");
 
-            migrationBuilder.DropColumn(
+            migrationBuilder.RenameColumn(
                 name: "IsYearlyFeePaid",
-                table: "Players");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Address",
                 table: "Players",
-                type: "text",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Email",
-                table: "Players",
-                type: "text",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ParentName",
-                table: "Players",
-                type: "text",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ParentPhoneNumber",
-                table: "Players",
-                type: "text",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "PhoneNumber",
-                table: "Players",
-                type: "text",
-                nullable: true);
+                newName: "IsDeleted");
 
             migrationBuilder.CreateTable(
                 name: "PaymentInformations",
@@ -82,35 +53,13 @@ namespace SportsManagment.API.Migrations
             migrationBuilder.DropTable(
                 name: "PaymentInformations");
 
-            migrationBuilder.DropColumn(
-                name: "Address",
-                table: "Players");
-
-            migrationBuilder.DropColumn(
-                name: "Email",
-                table: "Players");
-
-            migrationBuilder.DropColumn(
-                name: "ParentName",
-                table: "Players");
-
-            migrationBuilder.DropColumn(
-                name: "ParentPhoneNumber",
-                table: "Players");
-
-            migrationBuilder.DropColumn(
-                name: "PhoneNumber",
-                table: "Players");
+            migrationBuilder.RenameColumn(
+                name: "IsDeleted",
+                table: "Players",
+                newName: "IsYearlyFeePaid");
 
             migrationBuilder.AddColumn<bool>(
                 name: "IsMonthlyFeePaid",
-                table: "Players",
-                type: "boolean",
-                nullable: false,
-                defaultValue: false);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "IsYearlyFeePaid",
                 table: "Players",
                 type: "boolean",
                 nullable: false,

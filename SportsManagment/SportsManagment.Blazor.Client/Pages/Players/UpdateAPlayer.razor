@@ -1,0 +1,38 @@
+﻿@page "/player/{PlayerId:guid}/update"
+
+@if (updatePlayer != null)
+{
+    <MudPaper Elevation="1" Class="pa-4 mx-auto" Style="max-width: 500px">
+        <MudText Typo="Typo.h5">Uredi igralca</MudText>
+
+        <EditForm Model="updatePlayer" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <MudTextField Label="Ime" @bind-Value="updatePlayer.FirstName" />
+            <MudTextField Label="Priimek" @bind-Value="updatePlayer.LastName" />
+            <MudDatePicker Label="Datum rojstva" Editable="true" @bind-Date="tempBirthDate" DateFormat="dd.MM.yyyy" />
+            <MudTextField Label="Email" @bind-Value="updatePlayer.Email" />
+            <MudTextField Label="Naslov" @bind-Value="updatePlayer.Address" />
+            <MudTextField Label="Telefonska številka" @bind-Value="updatePlayer.PhoneNumber" />
+            <MudTextField Label="Ime starša" @bind-Value="updatePlayer.ParentName" />
+            <MudTextField Label="Telefonska številka starša" @bind-Value="updatePlayer.ParentPhoneNumber" />
+
+            <MudGrid Justify="Justify.Center">
+                <MudItem>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Posodobi</MudButton>
+                    <MudButton OnClick="@(() => GoToPlayerDetails(PlayerId))" 
+                               Variant="Variant.Filled" DisableElevation="true" Color="Color.Info">Na Profil igralca</MudButton>
+                    <MudButton OnClick="@(() => GoToPlayers(PlayerId))"
+                               Variant="Variant.Filled" DisableElevation="true" Color="Color.Dark">Na vse igralce</MudButton>
+
+                </MudItem>
+            </MudGrid>
+
+        </EditForm>
+    </MudPaper>
+}
+else
+{
+    <p>Loading...</p>
+}

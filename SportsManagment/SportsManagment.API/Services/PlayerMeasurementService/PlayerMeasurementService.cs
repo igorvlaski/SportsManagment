@@ -1,4 +1,8 @@
-﻿namespace SportsManagment.API.Services.PlayerMeasurementService;
+﻿using SportsManagment.API.Data;
+using SportsManagment.Shared.Domain;
+
+namespace SportsManagment.API.Services.PlayerMeasurementService;
+
 
 public class PlayerMeasurementService : IPlayerMeasurementService
 {

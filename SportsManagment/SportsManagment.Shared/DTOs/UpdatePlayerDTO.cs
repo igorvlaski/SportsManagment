@@ -1,6 +1,6 @@
-﻿namespace SportsManagment.API.DTOs;
+﻿namespace SportsManagment.Shared.DTOs;
 
-public class CreatePlayerDTO
+public class UpdatePlayerDTO
 {
     public string? FirstName { get; set; }
     public string? LastName { get; set; }

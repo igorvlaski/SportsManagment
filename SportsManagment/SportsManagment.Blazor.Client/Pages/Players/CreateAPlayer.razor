@@ -1,0 +1,27 @@
+﻿@page "/player"
+
+<MudPaper Elevation="1" Class="pa-4 mx-auto" Style="max-width: 500px">
+    <MudText Typo="Typo.h5">Dodaj igralca</MudText>
+
+    <MudForm Model="player">
+        <MudTextField Label="Ime" @bind-Value="player.FirstName"/>
+        <MudTextField Label="Priimek" @bind-Value="player.LastName"/>
+        <MudDatePicker Label="Datum rojstva" Editable="true" @bind-Date="tempBirthDate" DateFormat="dd.MM.yyyy" />
+        <MudTextField Label="Email" @bind-Value="player.Email"/>
+        <MudTextField Label="Naslov" @bind-Value="player.Address"/>
+        <MudTextField Label="Telefonska številka" @bind-Value="player.PhoneNumber"/>
+        <MudTextField Label="Ime starša" @bind-Value="player.ParentName"/>
+        <MudTextField Label="Telefonska številka starša" @bind-Value="player.ParentPhoneNumber"/>
+        <br>
+
+        <MudGrid Justify="Justify.Center">
+            <MudItem>
+                <MudButton Variant="Variant.Filled"
+                           OnClick="(async ()=> await HandleValidSubmit())"
+                           Color="Color.Success">Dodaj igralca</MudButton>
+                <MudButton Variant="Variant.Filled" DisableElevation="true" @onclick="ResetForm">Resetiraj obrazec</MudButton>
+            </MudItem>
+            <MudButton OnClick="@(() => GoToPlayers())" Variant="Variant.Filled" Color="Color.Primary">Nazaj na vse igralce</MudButton>
+        </MudGrid>
+    </MudForm>
+</MudPaper>

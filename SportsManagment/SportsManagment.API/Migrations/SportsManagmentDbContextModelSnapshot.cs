@@ -17,7 +17,7 @@ namespace SportsManagment.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -37,7 +37,7 @@ namespace SportsManagment.API.Migrations
                     b.ToTable("PlayerSelection");
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.MeasurementInformation", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.MeasurementInformation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +60,7 @@ namespace SportsManagment.API.Migrations
                     b.ToTable("MeasurementInformations");
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.PaymentInformation", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.PaymentInformation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +85,7 @@ namespace SportsManagment.API.Migrations
                     b.ToTable("PaymentInformations");
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.Player", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.Player", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,6 +102,9 @@ namespace SportsManagment.API.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
                         .HasColumnType("text");
@@ -120,7 +123,7 @@ namespace SportsManagment.API.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.PlayerMeasurement", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.PlayerMeasurement", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -174,7 +177,7 @@ namespace SportsManagment.API.Migrations
                     b.ToTable("PlayerMeasurements");
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.Selection", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.Selection", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,7 +194,7 @@ namespace SportsManagment.API.Migrations
                     b.ToTable("Selections");
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.TrainingAttendance", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.TrainingAttendance", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -217,64 +220,64 @@ namespace SportsManagment.API.Migrations
 
             modelBuilder.Entity("PlayerSelection", b =>
                 {
-                    b.HasOne("SportsManagment.API.Domain.Player", null)
+                    b.HasOne("SportsManagment.Shared.Domain.Player", null)
                         .WithMany()
                         .HasForeignKey("PlayersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SportsManagment.API.Domain.Selection", null)
+                    b.HasOne("SportsManagment.Shared.Domain.Selection", null)
                         .WithMany()
                         .HasForeignKey("SelectionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.PaymentInformation", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.PaymentInformation", b =>
                 {
-                    b.HasOne("SportsManagment.API.Domain.Player", null)
+                    b.HasOne("SportsManagment.Shared.Domain.Player", null)
                         .WithMany("PaymentInformations")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.PlayerMeasurement", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.PlayerMeasurement", b =>
                 {
-                    b.HasOne("SportsManagment.API.Domain.MeasurementInformation", null)
+                    b.HasOne("SportsManagment.Shared.Domain.MeasurementInformation", null)
                         .WithMany("PlayerMeasurements")
                         .HasForeignKey("MeasurementInformationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SportsManagment.API.Domain.Player", null)
+                    b.HasOne("SportsManagment.Shared.Domain.Player", null)
                         .WithMany("PlayerMeasurements")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.TrainingAttendance", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.TrainingAttendance", b =>
                 {
-                    b.HasOne("SportsManagment.API.Domain.Player", null)
+                    b.HasOne("SportsManagment.Shared.Domain.Player", null)
                         .WithMany("TrainingAttendances")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SportsManagment.API.Domain.Selection", null)
+                    b.HasOne("SportsManagment.Shared.Domain.Selection", null)
                         .WithMany("TrainingAttendances")
                         .HasForeignKey("SelectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.MeasurementInformation", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.MeasurementInformation", b =>
                 {
                     b.Navigation("PlayerMeasurements");
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.Player", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.Player", b =>
                 {
                     b.Navigation("PaymentInformations");
 
@@ -283,7 +286,7 @@ namespace SportsManagment.API.Migrations
                     b.Navigation("TrainingAttendances");
                 });
 
-            modelBuilder.Entity("SportsManagment.API.Domain.Selection", b =>
+            modelBuilder.Entity("SportsManagment.Shared.Domain.Selection", b =>
                 {
                     b.Navigation("TrainingAttendances");
                 });

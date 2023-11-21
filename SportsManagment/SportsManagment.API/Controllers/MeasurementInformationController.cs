@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SportsManagment.API.Services.MeasurementInformationService;
+using SportsManagment.Shared.Domain;
 
 namespace SportsManagment.API.Controllers;
 

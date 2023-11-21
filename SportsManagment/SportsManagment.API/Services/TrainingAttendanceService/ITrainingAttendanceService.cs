@@ -1,4 +1,6 @@
-﻿namespace SportsManagment.API.Services.TrainingAttendanceService;
+﻿using SportsManagment.Shared.Domain;
+
+namespace SportsManagment.API.Services.TrainingAttendanceService;
 
 public interface ITrainingAttendanceService
 {

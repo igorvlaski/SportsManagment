@@ -1,4 +1,4 @@
-﻿namespace SportsManagment.API.Domain;
+﻿namespace SportsManagment.Shared.Domain;
 
 public class TrainingAttendance
 {
@@ -6,7 +6,7 @@ public class TrainingAttendance
 
     public DateOnly Date { get; set; }
 
-    public Guid SelectionId{ get; set; }
+    public Guid SelectionId { get; set; }
 
     public Guid PlayerId { get; set; }
 }

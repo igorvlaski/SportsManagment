@@ -1,5 +1,6 @@
-﻿using SportsManagment.API.Domain;
-using SportsManagment.API.DTOs;
+﻿using SportsManagment.API.Data;
+using SportsManagment.Shared.Domain;
+
 
 namespace SportsManagment.API.Services.PaymentInformationService;
 

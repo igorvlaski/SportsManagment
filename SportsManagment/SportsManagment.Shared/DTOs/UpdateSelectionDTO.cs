@@ -1,4 +1,4 @@
-﻿namespace SportsManagment.API.DTOs;
+﻿namespace SportsManagment.Shared.DTOs;
 
 public class UpdateSelectionDTO
 {
