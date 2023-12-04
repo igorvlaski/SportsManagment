@@ -1,0 +1,23 @@
+﻿@page "/selection"
+
+<MudPaper Elevation="1" Class="pa-4 mx-auto" Style="max-width: 500px">
+    <MudText Typo="Typo.h5">Dodaj selekcijo</MudText>
+
+    <MudForm Model="selection">
+        <MudTextField Label="Selekcija" @bind-Value="selection.SelectionName" />
+        <MudTextField Label="Opis" @bind-Value="selection.Description" />
+        <br />
+        <MudGrid Justify="Justify.Center">
+            <MudItem>
+                <MudButton Variant="Variant.Filled"
+                           OnClick="(async ()=> await HandleValidSubmit())"
+                           Color="Color.Success">Dodaj selekcijo</MudButton>
+                <MudButton Variant="Variant.Filled" DisableElevation="true" @onclick="ResetForm">Resetiraj obrazec</MudButton>
+
+            </MudItem>
+            <MudButton OnClick="@(() => GoToSelections())" 
+                       Variant="Variant.Filled" 
+                       Color="Color.Primary">Nazaj na vse selekcije</MudButton>
+        </MudGrid>
+    </MudForm>
+</MudPaper>

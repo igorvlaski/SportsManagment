@@ -7,16 +7,15 @@
     <MudTable Items="players" Filter="FilterFunction">
 
         <ToolBarContent>
-            <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Class="mr-5" />
-            <MudTooltip Text="Dodaj Igralca">
+            <MudTooltip Text="Dodaj Igralca" Arrow="true" Placement="Placement.Top">
                 <MudIconButton Icon="@Icons.Material.Outlined.Add" OnClick="@(() => GoToCreateAPlayer())" />
             </MudTooltip>
             <MudSpacer />
-            <MudTextField @bind-Value="searchString" 
-                          Placeholder="Poišči igralca" 
-                          Adornment="Adornment.Start" 
-                          AdornmentIcon="@Icons.Material.Filled.Search" 
-                          IconSize="Size.Medium" 
+            <MudTextField @bind-Value="searchString"
+                          Placeholder="Poišči igralca"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Medium"
                           Class="mt-0"
                           Style="margin-left: auto; width: auto; max-width: 50%;"></MudTextField>
         </ToolBarContent>
@@ -26,17 +25,23 @@
                     <MudTableSortLabel SortBy="new Func<Player, object>(x=>x.LastName)">Ime in priimek</MudTableSortLabel>
                 </MudTooltip>
             </MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<Player, object>(x=>x.DateOfBirth)">Datum rojstva</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<Player, object>(x=>x.Email)">Email</MudTableSortLabel></MudTh>
+            <MudTh>
+                <MudTooltip Text="Razvrsti po datumu rojstva" Arrow="true" Placement="Placement.Top">
+                <MudTableSortLabel SortBy="new Func<Player, object>(x=>x.DateOfBirth)">Datum rojstva</MudTableSortLabel>
+                </MudTooltip>
+                </MudTh>
+            <MudTh>Email</MudTh>
             <MudTh>Posodobi ali odstrani Igralca</MudTh>
-
         </HeaderContent>
 
         <RowTemplate>
-            <MudTd DataLabel="Full Name">
-                <MudButton OnClick="@(() => GoToPlayerDetails(context.Id))">@($"{context.FirstName} {context.LastName}")</MudButton>
-                </MudTd>
-                <MudTd DataLabel="Date Of Birth">@context.DateOfBirth</MudTd>
+            <MudTd DataLabel="Ime igralca">
+                <MudTooltip Text="Pojdi na igralca" Arrow="true" Placement="Placement.Top">
+                    <MudButton OnClick="@(() => GoToPlayerDetails(context.Id))">@($"{context.FirstName} {context.LastName}")</MudButton>
+                </MudTooltip>
+
+            </MudTd>
+            <MudTd DataLabel="Datum rojstva">@context.DateOfBirth</MudTd>
                 <MudTd DataLabel="Email">@context.Email</MudTd>
 
 
@@ -57,5 +62,6 @@
 }
 else
 {
-    <MudText Typo="Typo.body1">Loading players...</MudText>
+    <MudText Typo="Typo.body1">Nalagam igralce...</MudText>
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
 }

@@ -11,7 +11,11 @@ public interface IPlayerService
     bool HardDelete(Guid id);
     bool SoftDelete(Guid Id);
     bool Restore(Guid Id);
-    Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements, bool includePaymentInformations);
+    Player GetById(Guid id, DateOnly? newerthen, 
+                            bool includePlayerMeasurements, 
+                            bool includePaymentInformations, 
+                            bool includeSelections,
+                            bool includeTrainingAttendances);
     Player Update(Guid id, UpdatePlayerDTO updatePlayer);
     bool AddOrRemovePlayerFromSelection(Guid playerId, Guid selectionId);
 }
