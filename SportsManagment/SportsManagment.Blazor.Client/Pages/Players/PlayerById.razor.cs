@@ -41,12 +41,11 @@ public partial class PlayerById
         if (newMonth.HasValue)
         {
             selectedMonth = newMonth.Value;
-            await LoadAndFetchTrainingAttendances();
+            await LoadTrainingAttendances();
         }
     }
 
-
-    private async Task LoadAndFetchTrainingAttendances()
+    private async Task LoadTrainingAttendances()
     {
         GenerateDaysInMonth(selectedMonth);
 
@@ -66,39 +65,35 @@ public partial class PlayerById
         }
     }
 
-    private async Task AddSelection(Guid selectionId)
+    private async Task UpdatePlayerSelection(Guid selectionId)
     {
-        if (selectionId != Guid.Empty)
-        {
-            await Http.PatchAsync($"Player/{PlayerId}/selection/{selectionId}", null);
-            var selectionToAdd = allSelections.FirstOrDefault(s => s.Id == selectionId);
-            if (selectionToAdd != null)
-            {
-                player.Selections.Add(selectionToAdd);
-                selectedNewSelectionId = Guid.Empty; // Reset selection
-                StateHasChanged();
-                Snackbar.Add($"Igralec dodan v selekcijo {selectionToAdd.SelectionName}", Severity.Success);
-            }
-            else
-            {
-                Snackbar.Add("Napaka pri dodajanju igralca v selekcijo.", Severity.Error);
-            }
-        }
-    }
+        bool currentlySelected = player.Selections.Any(s => s.Id == selectionId);
+        var response = await Http.PatchAsync($"Player/{PlayerId}/selection/{selectionId}", null);
 
-    private async Task RemoveSelection(Guid selectionId)
-    {
-        await Http.PatchAsync($"Player/{PlayerId}/selection/{selectionId}", null);
-        var selectionToRemove = player.Selections.FirstOrDefault(s => s.Id == selectionId);
-        if (selectionToRemove != null)
+        var selection = allSelections.FirstOrDefault(s => s.Id == selectionId);
+        if (selection == null)
         {
-            player.Selections.Remove(selectionToRemove);
-            Snackbar.Add($"Igralec odstranjen iz selekcije {selectionToRemove.SelectionName}", Severity.Success);
+            Snackbar.Add("Selekcija ni najdena.", Severity.Error);
+            return;
+        }
+
+        if (currentlySelected)
+        {
+            var existingSelection = player.Selections.FirstOrDefault(s => s.Id == selectionId);
+            if (existingSelection != null)
+            {
+                player.Selections.Remove(existingSelection);
+                Snackbar.Add($"Igralec odstranjen iz selekcije {selection.SelectionName}", Severity.Success);
+            }
         }
         else
         {
-            Snackbar.Add("Napaka pri odstranjevanju igralca iz selekcije.", Severity.Error);
+            player.Selections.Add(selection);
+            Snackbar.Add($"Igralec dodan v selekcijo {selection.SelectionName}", Severity.Success);
         }
+
+        selectedNewSelectionId = Guid.Empty;
+        StateHasChanged();
     }
 
     private async Task ConfirmDeletePlayer(Player player)

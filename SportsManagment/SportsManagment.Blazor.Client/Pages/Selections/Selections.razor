@@ -7,7 +7,7 @@
     <MudTable Items="selections">
         <ToolBarContent>
             <MudTooltip Text="Dodaj selekcijo" Arrow="true" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Outlined.Add" OnClick="@(() => GoToCreateASelection())" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" OnClick="GoToCreateASelection" />
             </MudTooltip>
         </ToolBarContent>
         <HeaderContent>
@@ -41,6 +41,5 @@
 }
 else
 {
-    <MudText Typo="Typo.body1">Nalagam selekcije...</MudText>
-    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+    <LoadingIndicator />
 }

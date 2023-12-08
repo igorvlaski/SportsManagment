@@ -1,0 +1,16 @@
+﻿<MudGrid Justify="Justify.Center" Spacing="2">
+    <MudItem>
+        <MudButton Variant="Variant.Filled"
+                   OnClick="@OnPrimaryButtonClick"
+                   Color="Color.Success">@PrimaryButtonText</MudButton>
+        </MudItem>
+        <MudItem>
+            <MudButton Variant="Variant.Filled"
+                       OnClick="@OnReset">Resetiraj obrazec</MudButton>
+        </MudItem>
+        <MudItem>
+            <MudButton OnClick="@OnSecondaryButtonClick"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary">@SecondaryButtonText</MudButton>
+        </MudItem>
+    </MudGrid>

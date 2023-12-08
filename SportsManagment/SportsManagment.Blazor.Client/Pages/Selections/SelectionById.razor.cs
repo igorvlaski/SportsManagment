@@ -40,7 +40,7 @@ public partial class SelectionById
 
         currentWeekStart = GetStartOfWeek(DateTime.Today);
         InitializeWeekDays();
-        await FetchAndInitializeAttendanceRecords();
+        await LoadAttendanceRecords();
     }
 
     private static DateTime GetStartOfWeek(DateTime date)
@@ -63,7 +63,7 @@ public partial class SelectionById
                                     .ToList();
     }
 
-    private async Task FetchAndInitializeAttendanceRecords()
+    private async Task LoadAttendanceRecords()
     {
         var allAttendances = await Http.GetFromJsonAsync<List<TrainingAttendance>>("TrainingAttendance");
         trainingAttendances = allAttendances
@@ -98,7 +98,7 @@ public partial class SelectionById
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add($"Prisotnost uspešno ustvarjena.", Severity.Success);
-            await FetchAndInitializeAttendanceRecords();
+            await LoadAttendanceRecords();
         }
         else
         {
@@ -113,7 +113,7 @@ public partial class SelectionById
         if (response.IsSuccessStatusCode)
         {
             Snackbar.Add($"Prisotnost uspešno odstranjena.", Severity.Success);
-            await FetchAndInitializeAttendanceRecords();
+            await LoadAttendanceRecords();
         }
         else
         {

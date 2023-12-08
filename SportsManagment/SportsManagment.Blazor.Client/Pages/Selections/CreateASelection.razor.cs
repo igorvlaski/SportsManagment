@@ -43,7 +43,6 @@ public partial class CreateASelection
     public void ResetForm()
     {
         selection = new CreateSelectionDTO();
-        errorMessage = string.Empty;
     }
 
     private void GoToSelections()

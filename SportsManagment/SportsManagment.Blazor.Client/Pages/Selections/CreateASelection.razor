@@ -7,17 +7,10 @@
         <MudTextField Label="Selekcija" @bind-Value="selection.SelectionName" />
         <MudTextField Label="Opis" @bind-Value="selection.Description" />
         <br />
-        <MudGrid Justify="Justify.Center">
-            <MudItem>
-                <MudButton Variant="Variant.Filled"
-                           OnClick="(async ()=> await HandleValidSubmit())"
-                           Color="Color.Success">Dodaj selekcijo</MudButton>
-                <MudButton Variant="Variant.Filled" DisableElevation="true" @onclick="ResetForm">Resetiraj obrazec</MudButton>
-
-            </MudItem>
-            <MudButton OnClick="@(() => GoToSelections())" 
-                       Variant="Variant.Filled" 
-                       Color="Color.Primary">Nazaj na vse selekcije</MudButton>
-        </MudGrid>
+        <FormButtons PrimaryButtonText="Dodaj selekcijo"
+                     OnPrimaryButtonClick="HandleValidSubmit"
+                     SecondaryButtonText="Na selekcije"
+                     OnSecondaryButtonClick="GoToSelections"
+                     OnReset="ResetForm" />
     </MudForm>
 </MudPaper>
