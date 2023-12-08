@@ -1,0 +1,14 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudForm>
+            <MudTextField Label="Znesek" @bind-Value="paymentInformation.Amount" FullWidth />
+             <MudDatePicker Label="Datum plačila" Editable="true" @bind-Date="tempPaymentDate" DateFormat="dd.MM.yyyy" />
+             <MudTextField Label="Opis" @bind-Value="paymentInformation.Description" FullWidth />
+         </MudForm>
+     </DialogContent>
+     <DialogActions>
+         <MudButton OnClick="@Submit" Color="Color.Primary">Submit</MudButton>
+         <MudButton OnClick="@Cancel" Color="Color.Error">Cancel</MudButton>
+     </DialogActions>
+ </MudDialog>
+

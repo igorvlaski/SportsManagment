@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using SportsManagment.Shared.Domain;
 using MudBlazor;
 using SportsManagment.Blazor.Client.Shared;
+using System.Net.WebSockets;
 
 namespace SportsManagment.Blazor.Client.Pages.Players;
 
@@ -17,7 +18,9 @@ public partial class PlayerById
     [Inject] ISnackbar Snackbar { get; set; }
 
     private Player? player;
-    private int activeTabIndex = 0;
+    private List<PaymentInformation> paymentInformation = new();
+    private DateTime? paymentDate =  new DateTime(2023,1,1);
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -55,8 +58,35 @@ public partial class PlayerById
         }
     }
 
+    private async Task OpenAddPaymentDialog()
+    {
+        var result = await DialogService.Show<AddPaymentDialog>("Dodaj plačilo", new DialogParameters { ["PlayerId"] = PlayerId }).Result;
+
+        await LoadPaymentInformation();
+        StateHasChanged();
+    }
+
+    private async Task LoadPaymentInformation()
+    {
+        try
+        {
+            paymentInformation = await Http.GetFromJsonAsync<List<PaymentInformation>>($"PaymentInformation/player/{PlayerId}?newerthen={paymentDate:yyyy-MM-dd}");
+
+            if (paymentInformation == null || !paymentInformation.Any())
+            {
+                OpenAddPaymentDialog();
+            }
+            
+        }
+        catch (Exception)
+        {
+            Snackbar.Add("Napaka pri pridobivanju podatkov!", Severity.Error);
+        }
+    }
+
     private void GoToEditPlayer(Guid playerId)
     {
         NavigationManager.NavigateTo($"/player/{playerId}/update");
     }
+
 }
