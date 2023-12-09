@@ -1,0 +1,45 @@
+﻿@page "/selections"
+
+<PageTitle>Vse selekcije</PageTitle>
+
+@if (selections != null && selections.Any())
+{
+    <MudTable Items="selections">
+        <ToolBarContent>
+            <MudTooltip Text="Dodaj selekcijo" Arrow="true" Placement="Placement.Top">
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" OnClick="GoToCreateASelection" />
+            </MudTooltip>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>
+                <MudTooltip Text="Razvrsti po imenu" Arrow="true" Placement="Placement.Top">
+                    <MudTableSortLabel SortBy="new Func<Selection, object>(x=>x.SelectionName)">Selekcija</MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+            <MudTh>Opis selekcije</MudTh>
+            <MudTh>Uredi ali odstrani selekcijo</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Selection Name">
+                <MudTooltip Text="Pojdi na  urejanje prisotnosti" Arrow="true" Placement="Placement.Top">
+                    <MudButton OnClick="@(() => GoToSelectionDetails(context.Id))">@context.SelectionName</MudButton>
+                    </MudTooltip>
+
+                </MudTd>
+                <MudTd DataLabel="Description">@context.Description</MudTd>
+                <MudTd>
+                    <MudTooltip Text="Posodobi selekcijo" Arrow="true" Placement="Placement.Top">
+                        <MudIconButton OnClick="@(() => GoToEditSelection(context.Id))" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                    </MudTooltip>
+                    <MudTooltip Text="Odstrani selekcijo" Arrow="true" Placement="Placement.Top">
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                       OnClick="@(() => ConfirmDeleteSelection(context))"></MudIconButton>
+                    </MudTooltip>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+}
+else
+{
+    <LoadingIndicator />
+}

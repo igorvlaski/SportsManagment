@@ -43,7 +43,6 @@ public partial class CreateAPlayer
     public void ResetForm()
     {
         player = new CreatePlayerDTO();
-        errorMessage = string.Empty;
     }
 
     private void GoToPlayers()

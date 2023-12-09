@@ -49,7 +49,7 @@ public class SelectionService : ISelectionService
     public Selection GetById(Guid id)
     {
 
-        var selection = _dbContext.Selections.FirstOrDefault(x => x.Id == id);
+        var selection = _dbContext.Selections.Include(x=>x.Players).FirstOrDefault(x => x.Id == id);
 
         if (selection == null)
         {

@@ -1,0 +1,50 @@
+﻿@page "/selection/{SelectionId:guid}"
+
+<PageTitle>Selekcija</PageTitle>
+
+@if (selection != null)
+{
+    <MudText Typo="Typo.h5">Uredi prisotnosti v selekciji: @selection.SelectionName</MudText>
+
+
+    <MudTable Items="selection.Players">
+        <ToolBarContent>
+            <MudTooltip Text="Posodobi selekcijo" Arrow="true" Placement="Placement.Top">
+                <MudIconButton OnClick="@(() => GoToEditSelection(selection.Id))" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+            </MudTooltip>
+        </ToolBarContent>
+
+        <HeaderContent>
+            <MudTh>
+                Ime igralca
+            </MudTh>
+            @foreach (var day in currentWeekDays)
+            {
+                <MudTh>@day.ToString("ddd dd")</MudTh>
+            }
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd DataLabel="Ime igralca">
+                <MudButton OnClick="@(() => GoToPlayerDetails(context.Id))">@($"{context.FirstName} {context.LastName}")</MudButton>
+            </MudTd>
+            @foreach (var day in currentWeekDays)
+            {
+                var dayDateOnly = DateOnly.FromDateTime(day);
+                var attendanceRecord = trainingAttendances.FirstOrDefault(a => a.PlayerId == context.Id && a.Date == dayDateOnly);
+                <MudTd DataLabel="Trening">
+                    <MudCheckBox Color="Color.Primary" UnCheckedColor="Color.Error" Checked="@(attendanceRecord != null)"
+                                 CheckedChanged="@((bool value) => OnAttendanceCheckboxChanged(value, context.Id, dayDateOnly, attendanceRecord?.Id))"></MudCheckBox>
+                </MudTd>
+            }
+        </RowTemplate>
+
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+}
+else
+{
+    <LoadingIndicator />
+}
