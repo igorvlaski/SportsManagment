@@ -1,0 +1,16 @@
+﻿@page "/selection"
+
+<MudPaper Elevation="1" Class="pa-4 mx-auto" Style="max-width: 500px">
+    <MudText Typo="Typo.h5">Dodaj selekcijo</MudText>
+
+    <MudForm Model="selection">
+        <MudTextField Label="Selekcija" @bind-Value="selection.SelectionName" />
+        <MudTextField Label="Opis" @bind-Value="selection.Description" />
+        <br />
+        <FormButtons PrimaryButtonText="Dodaj selekcijo"
+                     OnPrimaryButtonClick="HandleValidSubmit"
+                     SecondaryButtonText="Na selekcije"
+                     OnSecondaryButtonClick="GoToSelections"
+                     OnReset="ResetForm" />
+    </MudForm>
+</MudPaper>

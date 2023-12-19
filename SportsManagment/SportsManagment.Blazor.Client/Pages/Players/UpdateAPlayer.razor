@@ -23,7 +23,7 @@
                     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Posodobi</MudButton>
                     <MudButton OnClick="@(() => GoToPlayerDetails(PlayerId))" 
                                Variant="Variant.Filled" DisableElevation="true" Color="Color.Info">Na Profil igralca</MudButton>
-                    <MudButton OnClick="@(() => GoToPlayers(PlayerId))"
+                    <MudButton OnClick="@(() => GoToPlayers())"
                                Variant="Variant.Filled" DisableElevation="true" Color="Color.Dark">Na vse igralce</MudButton>
 
                 </MudItem>
@@ -34,5 +34,5 @@
 }
 else
 {
-    <p>Loading...</p>
+    <LoadingIndicator />
 }

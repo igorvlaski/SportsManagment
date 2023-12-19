@@ -14,14 +14,10 @@
         <MudTextField Label="Telefonska številka starša" @bind-Value="player.ParentPhoneNumber"/>
         <br>
 
-        <MudGrid Justify="Justify.Center">
-            <MudItem>
-                <MudButton Variant="Variant.Filled"
-                           OnClick="(async ()=> await HandleValidSubmit())"
-                           Color="Color.Success">Dodaj igralca</MudButton>
-                <MudButton Variant="Variant.Filled" DisableElevation="true" @onclick="ResetForm">Resetiraj obrazec</MudButton>
-            </MudItem>
-            <MudButton OnClick="@(() => GoToPlayers())" Variant="Variant.Filled" Color="Color.Primary">Nazaj na vse igralce</MudButton>
-        </MudGrid>
+        <FormButtons PrimaryButtonText="Dodaj igralca"
+                     OnPrimaryButtonClick="HandleValidSubmit"
+                     SecondaryButtonText="Na igralce"
+                     OnSecondaryButtonClick="GoToPlayers"
+                     OnReset="ResetForm" />
     </MudForm>
 </MudPaper>

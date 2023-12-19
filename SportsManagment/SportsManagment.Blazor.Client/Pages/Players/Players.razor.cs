@@ -47,29 +47,25 @@ public partial class Players
         NavigationManager.NavigateTo("/player");
     }
 
-    private async Task ConfirmDeletePlayer(Player player)
+    private async Task DeletePlayer(Player player)
     {
-        var result = await DialogService.Show<DeleteConfirmationDialog>("Potrdi odstranitev igralca",
+        var confirmationResult = await DialogService.Show<DeleteConfirmationDialog>(
+            "Potrdi odstranitev igralca",
             new DialogParameters { ["DeleteItemName"] = $"{player.FirstName} {player.LastName}" }).Result;
 
-        if (!result.Canceled)
+        if (!confirmationResult.Canceled)
         {
-            await DeletePlayer(player.Id);
-        }
-    }
-
-    private async Task DeletePlayer(Guid playerId)
-    {
-        var response = await Http.DeleteAsync($"Player/{playerId}");
-        if (response.IsSuccessStatusCode)
-        {
-            players.RemoveAll(p => p.Id == playerId);
-            StateHasChanged();
-            Snackbar.Add("Igralec uspešno odstranjen!", Severity.Success);
-        }
-        else
-        {
-            Snackbar.Add("Napaka pri odstranjevanju podatkov. Prosim poskusite kasneje.", Severity.Error);
+            var deleteResponse = await Http.DeleteAsync($"Player/{player.Id}");
+            if (deleteResponse.IsSuccessStatusCode)
+            {
+                players.RemoveAll(p => p.Id == player.Id);
+                StateHasChanged();
+                Snackbar.Add("Igralec uspešno odstranjen!", Severity.Success);
+            }
+            else
+            {
+                Snackbar.Add("Napaka pri odstranjevanju podatkov. Prosim poskusite kasneje.", Severity.Error);
+            }
         }
     }
 

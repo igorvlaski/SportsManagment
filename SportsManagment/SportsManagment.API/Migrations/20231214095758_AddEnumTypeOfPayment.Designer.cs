@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SportsManagment.API.Data;
@@ -11,9 +12,11 @@ using SportsManagment.API.Data;
 namespace SportsManagment.API.Migrations
 {
     [DbContext(typeof(SportsManagmentDbContext))]
-    partial class SportsManagmentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231214095758_AddEnumTypeOfPayment")]
+    partial class AddEnumTypeOfPayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,0 +1,29 @@
+﻿@page "/selection/{SelectionId:guid}/update"
+
+@if (updateSelection != null)
+{
+     <MudPaper Elevation="1" Class="pa-4 mx-auto" Style="max-width: 500px">
+        <MudText Typo="Typo.h5">Uredi selekcijo</MudText>
+        <EditForm Model="updateSelection" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <MudTextField Label="Ime selekcije" @bind-Value="updateSelection.SelectionName" />
+            <MudTextField Label="Opis selekcije" @bind-Value="updateSelection.Description" />
+
+            <MudGrid Justify="Justify.Center">
+                <MudItem>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Posodobi</MudButton>
+                    <MudButton OnClick="@(() => GoToSelectionDetails(SelectionId))"
+                               Variant="Variant.Filled" DisableElevation="true" Color="Color.Info">Na selekcijo</MudButton>
+                    <MudButton OnClick="@(() => GoToSelections())"
+                               Variant="Variant.Filled" DisableElevation="true" Color="Color.Dark">Na vse selekcije</MudButton>
+
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    </MudPaper>
+}
+else
+{
+    <LoadingIndicator />
+}

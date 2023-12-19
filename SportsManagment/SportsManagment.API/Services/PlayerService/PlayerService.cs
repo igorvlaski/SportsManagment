@@ -75,7 +75,11 @@ public class PlayerService : IPlayerService
         return _dbContext.Players.Where(p => p.IsDeleted).ToList();
     }
 
-    public Player GetById(Guid id, DateOnly? newerthen, bool includePlayerMeasurements, bool includePaymentInformations)
+    public Player GetById(Guid id, DateOnly? newerthen, 
+                          bool includePlayerMeasurements, 
+                          bool includePaymentInformations, 
+                          bool includeSelections,
+                          bool includeTrainingAttendances)
     {
         IQueryable<Player> players = _dbContext.Players;
 
@@ -92,6 +96,16 @@ public class PlayerService : IPlayerService
         if (includePaymentInformations)
         {
             players = players.Include(x => x.PaymentInformations);
+        }
+
+        if (includeSelections)
+        {
+            players = players.Include(x => x.Selections);
+        }
+
+        if (includeTrainingAttendances)
+        {
+            players = players.Include(x => x.TrainingAttendances);
         }
 
         var player = players.FirstOrDefault(x => x.Id == id);

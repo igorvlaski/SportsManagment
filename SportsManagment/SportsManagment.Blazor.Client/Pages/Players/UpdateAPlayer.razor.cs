@@ -2,21 +2,18 @@ using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 using SportsManagment.Shared.DTOs;
 using MudBlazor;
-using SportsManagment.Shared.Domain;
 
 namespace SportsManagment.Blazor.Client.Pages.Players;
 
 public partial class UpdateAPlayer
 {
-    [Parameter]
-    public Guid PlayerId { get; set; }
+    [Parameter] public Guid PlayerId { get; set; }
     [Inject] HttpClient Http { get; set; }
     [Inject] NavigationManager NavigationManager { get; set; }
     [Inject] ISnackbar Snackbar { get; set; }
 
     private UpdatePlayerDTO updatePlayer;
     private DateTime? tempBirthDate = DateTime.MinValue;
-    private string? errorMessage;
     protected override async Task OnInitializedAsync()
     {
         try
@@ -24,10 +21,9 @@ public partial class UpdateAPlayer
             updatePlayer = await Http.GetFromJsonAsync<UpdatePlayerDTO>($"Player/{PlayerId}");
             tempBirthDate = updatePlayer.DateOfBirth.ToDateTime(TimeOnly.MinValue);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            errorMessage = $"Error fetching player data: {ex.Message}";
-            Snackbar.Add(errorMessage, Severity.Error);
+            Snackbar.Add("Napaka pri pridobivanju podatkov!", Severity.Error);
         }
     }
 
@@ -35,7 +31,7 @@ public partial class UpdateAPlayer
     {
         NavigationManager.NavigateTo($"/player/{playerId}");
     }
-    private void GoToPlayers(Guid playerId)
+    private void GoToPlayers()
     {
         NavigationManager.NavigateTo($"/players");
     }
@@ -53,14 +49,13 @@ public partial class UpdateAPlayer
             }
             else
             {
-                errorMessage = await response.Content.ReadAsStringAsync();
-                Snackbar.Add(errorMessage, Severity.Error);
+
+                Snackbar.Add("Igralec ni bil posodobljen, poskusite kasneje.", Severity.Error);
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            errorMessage = $"Error editing player: {ex.Message}";
-            Snackbar.Add(errorMessage, Severity.Error);
+            Snackbar.Add("Napaka pri posodabljanju igralca!", Severity.Error);
         }
     }
 }
