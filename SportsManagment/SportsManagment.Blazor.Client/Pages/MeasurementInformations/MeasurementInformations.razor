@@ -1,0 +1,57 @@
+﻿@page "/measurementInformations"
+
+<PageTitle>Lokacija in datum meritev</PageTitle>
+
+@if (measurementInformations != null && measurementInformations.Any())
+{
+    <MudTable Items="measurementInformations">
+
+        <ToolBarContent>
+            <MudTooltip Text="Dodaj Meritev" Arrow="true" Placement="Placement.Top">
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" />
+            </MudTooltip>
+            <MudSpacer />
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>
+                <MudTooltip Text="Razvrsti po imenu meritve" Arrow="true" Placement="Placement.Top">
+                    <MudTableSortLabel SortBy="new Func<MeasurementInformation, object>(x=>x.Name)">Ime meritev</MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+            <MudTh>
+                <MudTooltip Text="Razvrsti po datumu meritve" Arrow="true" Placement="Placement.Top">
+                    <MudTableSortLabel SortBy="new Func<MeasurementInformation, object>(x=>x.Date)">Datum meritev</MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+            <MudTh>
+                <MudTooltip Text="Razvrsti po lokaciji meritve" Arrow="true" Placement="Placement.Top">
+                    <MudTableSortLabel SortBy="new Func<MeasurementInformation, object>(x=>x.Location)">Lokacija meritev</MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+            <MudTh>Lokacija meritev</MudTh>
+            <MudTh>Posodobi ali odstrani meritev</MudTh>
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd DataLabel="Ime meritve">@context.Name</MudTd>
+                <MudTd DataLabel="Datum meritve">@context.Date</MudTd>
+                <MudTd DataLabel="Email">@context.Location</MudTd>
+                <MudTd DataLabel="Email">@context.Description</MudTd>
+                <MudTd>
+                    <MudTooltip Text="Posodobi meritev" Arrow="true" Placement="Placement.Top">
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                    </MudTooltip>
+                    <MudTooltip Text="Odstrani meritev" Arrow="true" Placement="Placement.Top">
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+                    </MudTooltip>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+}
+else
+{
+    <LoadingIndicator />
+}
