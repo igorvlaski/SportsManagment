@@ -133,7 +133,7 @@
                             <MudIconButton Icon="@Icons.Material.Outlined.Euro" OnClick="OpenAddPaymentDialog" />
                         </MudTooltip>
                         <MudSpacer />
-                        <MudDatePicker Label="Izberi datum" Date="paymentDate" FixDay="1" DateFormat="dd.MM.yyyy" PickerMonthChanged="LoadPaymentInformationBasedOnDate" />
+                        <MudDatePicker Label="Prikaži novejše od izbranega datuma" Date="paymentDate" FixDay="1" DateFormat="dd.MM.yyyy" PickerMonthChanged="LoadPaymentInformationBasedOnDate" />
 
                     </MudToolBar>
                     <MudTable Items="paymentInformation">
@@ -148,7 +148,7 @@
                             <MudTd DataLabel="Datum">@context.DateOfPayment</MudTd>
                                 <MudTd DataLabel="Znesek">@context.Amount</MudTd>
                                 <MudTd DataLabel="Opis">@context.Description</MudTd>
-                                <MudTd DataLabel="Tip plačila">@EnumExtension.ToUserFriendlyString(context.typeOfPayment)</MudTd>
+                                <MudTd DataLabel="Tip plačila">@EnumExtensions.ToUserFriendlyString(context.typeOfPayment)</MudTd>
                                 <MudTd>
                                     <MudTooltip Text="Uredi plačilo" Arrow="true" Placement="Placement.Top">
                                         <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="@(() => OpenEditPaymentDialog(context))"></MudIconButton>

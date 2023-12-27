@@ -20,7 +20,7 @@ public partial class Players
     protected override async Task OnInitializedAsync()
     {
         try
-        {
+        { 
             players = await Http.GetFromJsonAsync<List<Player>>("Player");
             if (players == null || !players.Any())
             {

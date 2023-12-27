@@ -2,7 +2,7 @@
 
 namespace SportsManagment.Blazor.Client.Shared;
 
-public static partial class EnumExtension
+public class EnumExtensions
 {
     public static string ToUserFriendlyString(TypeOfPayment typeOfPayment)
     {
