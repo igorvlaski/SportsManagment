@@ -1,7 +1,7 @@
 ﻿<MudDialog>
     <DialogContent>
         <MudForm>
-            <MudTextField Label="Znesek" @bind-Value="paymentInformation.Amount" FullWidth />
+            <MudNumericField Label="Znesek" @bind-Value="paymentInformation.Amount" FullWidth />
              <MudDatePicker Label="Datum plačila" Editable="true" @bind-Date="tempPaymentDate" DateFormat="dd.MM.yyyy" />
              <MudTextField Label="Opis" @bind-Value="paymentInformation.Description" FullWidth />
              <MudSelect Label="Vrsta plačila" @bind-Value="paymentInformation.typeOfPayment" T="TypeOfPayment">

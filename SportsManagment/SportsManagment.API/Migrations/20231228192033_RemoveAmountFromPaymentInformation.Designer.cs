@@ -12,8 +12,8 @@ using SportsManagment.API.Data;
 namespace SportsManagment.API.Migrations
 {
     [DbContext(typeof(SportsManagmentDbContext))]
-    [Migration("20231227125820_MoveEnumTypeOfPaymentFromPaymentInformation")]
-    partial class MoveEnumTypeOfPaymentFromPaymentInformation
+    [Migration("20231228192033_RemoveAmountFromPaymentInformation")]
+    partial class RemoveAmountFromPaymentInformation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,9 +68,6 @@ namespace SportsManagment.API.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<double?>("Amount")
-                        .HasColumnType("double precision");
 
                     b.Property<DateOnly>("DateOfPayment")
                         .HasColumnType("date");
