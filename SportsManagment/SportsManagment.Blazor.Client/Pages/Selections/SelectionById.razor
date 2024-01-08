@@ -15,9 +15,8 @@
         </ToolBarContent>
 
         <HeaderContent>
-            <MudTh>
-                Ime igralca
-            </MudTh>
+            <MudTh>Ime igralca</MudTh>
+            <MudTh>Dodaj plačilo</MudTh>
             @foreach (var day in currentWeekDays)
             {
                 <MudTh>@day.ToString("ddd dd")</MudTh>
@@ -26,8 +25,16 @@
 
         <RowTemplate>
             <MudTd DataLabel="Ime igralca">
+                <MudTooltip Text="Pojdi na igralca" Arrow="true" Placement="Placement.Top">
                 <MudButton OnClick="@(() => GoToPlayerDetails(context.Id))">@($"{context.FirstName} {context.LastName}")</MudButton>
+                </MudTooltip>
             </MudTd>
+            <MudTd>
+                <MudTooltip Text="Dodaj plačilo" Arrow="true" Placement="Placement.Top">
+                    <MudIconButton Icon="@Icons.Material.Filled.EuroSymbol" OnClick="@(() => OpenAddPaymentDialog(context.Id))" />
+                </MudTooltip>
+            </MudTd>
+
             @foreach (var day in currentWeekDays)
             {
                 var dayDateOnly = DateOnly.FromDateTime(day);

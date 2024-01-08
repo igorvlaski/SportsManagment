@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using SportsManagment.Blazor.Client.Shared;
 using SportsManagment.Shared.Domain;
 using System.Net.Http.Json;
 
@@ -11,7 +12,9 @@ public partial class SelectionById
     [Inject] private ISnackbar Snackbar { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
     [Inject] private HttpClient Http { get; set; }
-        
+    [Inject] private IDialogService DialogService { get; set; }
+
+
     private Selection selection;
     private List<TrainingAttendance> trainingAttendances { get; set; }
     private List<DateTime> currentWeekDays { get; set; }
@@ -97,7 +100,7 @@ public partial class SelectionById
 
         if (response.IsSuccessStatusCode)
         {
-            Snackbar.Add($"Prisotnost uspe�no ustvarjena.", Severity.Success);
+            Snackbar.Add($"Prisotnost uspešno ustvarjena.", Severity.Success);
             await LoadAttendanceRecords();
         }
         else
@@ -112,7 +115,7 @@ public partial class SelectionById
 
         if (response.IsSuccessStatusCode)
         {
-            Snackbar.Add($"Prisotnost uspe�no odstranjena.", Severity.Success);
+            Snackbar.Add($"Prisotnost uspešno odstranjena.", Severity.Success);
             await LoadAttendanceRecords();
         }
         else
@@ -130,4 +133,10 @@ public partial class SelectionById
     {
         NavigationManager.NavigateTo($"/selection/{selectionId}/update");
     }
+
+    private async Task OpenAddPaymentDialog(Guid playerId)
+    {
+        var result = await DialogService.Show<PaymentDialog>("Dodaj plačilo", new DialogParameters { ["PlayerId"] = playerId }).Result;
+    }
+
 }

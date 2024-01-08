@@ -1,0 +1,20 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudForm>
+            <MudNumericField Label="Znesek" @bind-Value="paymentInformation.Amount" FullWidth />
+             <MudDatePicker Label="Datum plačila" Editable="true" @bind-Date="tempPaymentDate" DateFormat="dd.MM.yyyy" />
+             <MudTextField Label="Opis" @bind-Value="paymentInformation.Description" FullWidth />
+             <MudSelect Label="Vrsta plačila" @bind-Value="paymentInformation.typeOfPayment" T="TypeOfPayment">
+                 @foreach (var type in Enum.GetValues<TypeOfPayment>())
+                {
+                    <MudSelectItem Value="type">@EnumExtensions.ToUserFriendlyString(type)</MudSelectItem>
+                }
+            </MudSelect>
+         </MudForm>
+     </DialogContent>
+     <DialogActions>
+        <MudButton OnClick="@Submit" Color="Color.Primary">@(ExistingPaymentInformation == null ? "Potrdi" : "Dodaj")</MudButton>
+        <MudButton OnClick="@Cancel" Color="Color.Error">Prekliči</MudButton>
+    </DialogActions>
+</MudDialog>
+

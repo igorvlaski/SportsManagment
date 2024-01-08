@@ -4,7 +4,7 @@
 
 @if (players != null && players.Any())
 {
-    <MudTable Items="players" Filter="FilterFunction">
+    <MudTable Items="players" Filter="FilterFunction" FixedHeader ="true">
 
         <ToolBarContent>
             <MudTooltip Text="Dodaj Igralca" Arrow="true" Placement="Placement.Top">
@@ -51,7 +51,7 @@
                     </MudTooltip>
                     <MudTooltip Text="Odstrani igralca" Arrow="true" Placement="Placement.Top">
                         <MudIconButton Icon="@Icons.Material.Filled.Delete"
-                                       OnClick="@(() => ConfirmDeletePlayer(context))"></MudIconButton>
+                                       OnClick="@(() => DeletePlayer(context))"></MudIconButton>
                     </MudTooltip>
                 </MudTd>
             </RowTemplate>

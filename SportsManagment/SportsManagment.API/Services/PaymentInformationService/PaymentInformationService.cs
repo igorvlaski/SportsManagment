@@ -75,6 +75,7 @@ public class PaymentInformationService : IPaymentInformationService
         paymentInformation.DateOfPayment = updatePaymentInformation.DateOfPayment;
         paymentInformation.Description = updatePaymentInformation.Description;
         paymentInformation.Amount = updatePaymentInformation.Amount;
+        paymentInformation.typeOfPayment = updatePaymentInformation.typeOfPayment;
 
         _dbContext.SaveChanges();
 

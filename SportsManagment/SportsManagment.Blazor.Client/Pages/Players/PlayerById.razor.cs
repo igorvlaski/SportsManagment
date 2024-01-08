@@ -15,13 +15,13 @@ public partial class PlayerById
     [Inject] ISnackbar Snackbar { get; set; }
 
     private Player? player;
+    private List<PaymentInformation> paymentInformation = new();
+    private DateTime? paymentDate =  new DateTime(2023,1,1);
     private List<Selection> allSelections = new();
     private Guid selectedNewSelectionId;
     private List<TrainingAttendance> trainingAttendances = new ();
     private DateTime selectedMonth = DateTime.Today;
     private List<DateTime> daysInSelectedMonth = new();
-
-
 
     protected override async Task OnInitializedAsync()
     {
@@ -36,7 +36,7 @@ public partial class PlayerById
         }
     }
 
-    private async Task OnPickerMonthChanged(DateTime? newMonth)
+    private async Task OnMonthChanged(DateTime? newMonth)
     {
         if (newMonth.HasValue)
         {
@@ -96,28 +96,87 @@ public partial class PlayerById
         StateHasChanged();
     }
 
-    private async Task ConfirmDeletePlayer(Player player)
+    private async Task DeletePlayer(Player player)
     {
-        var result = await DialogService.Show<DeleteConfirmationDialog>("Potrdi odstranitev igralca",
+        var confirmationResult = await DialogService.Show<DeleteConfirmationDialog>(
+            "Potrdi odstranitev igralca",
             new DialogParameters { ["DeleteItemName"] = $"{player.FirstName} {player.LastName}" }).Result;
 
-        if (!result.Canceled)
+        if (!confirmationResult.Canceled)
         {
-            await DeletePlayer(player.Id);
+            var deleteResponse = await Http.DeleteAsync($"Player/{player.Id}");
+            if (deleteResponse.IsSuccessStatusCode)
+            {
+                Snackbar.Add("Igralec uspešno odstranjen!", Severity.Success);
+                NavigationManager.NavigateTo("/players");
+            }
+            else
+            {
+                Snackbar.Add("Napaka pri odstranjevanju podatkov. Prosim poskusite kasneje.", Severity.Error);
+            }
         }
     }
 
-    private async Task DeletePlayer(Guid playerId)
+    private async Task OpenAddPaymentDialog()
     {
-        var response = await Http.DeleteAsync($"Player/{playerId}");
-        if (response.IsSuccessStatusCode)
+        var result = await DialogService.Show<PaymentDialog>("Dodaj plačilo", new DialogParameters { ["PlayerId"] = PlayerId }).Result;
+
+
+        await LoadPaymentInformation();
+        StateHasChanged();
+    }
+
+    private async Task OpenEditPaymentDialog(PaymentInformation payment)
+    {
+        var result = await DialogService.Show<PaymentDialog>("Uredi plačilo", new DialogParameters
         {
-            NavigationManager.NavigateTo("/players");
-            Snackbar.Add("Igralec uspešno odstranjen!", Severity.Success);
+            ["PlayerId"] = PlayerId,
+            ["ExistingPaymentInformation"] = payment
+        }).Result;
+
+        await LoadPaymentInformation();
+        StateHasChanged();
+    }
+
+    private async Task LoadPaymentInformation()
+    {
+        try
+        {
+            paymentInformation = await Http.GetFromJsonAsync<List<PaymentInformation>>
+                                                            ($"PaymentInformation/player/{PlayerId}?newerthen={paymentDate:yyyy-MM-dd}");
         }
-        else
+        catch (Exception)
         {
-            Snackbar.Add("Napaka pri odstranjevanju podatkov. Prosim poskusite kasneje.", Severity.Error);
+            Snackbar.Add("Napaka pri pridobivanju podatkov!", Severity.Error);
+        }
+    }
+
+    private async Task LoadPaymentInformationBasedOnDate(DateTime? newDate)
+    {
+        if (newDate.HasValue)
+        {
+            paymentDate = newDate.Value;
+            await LoadPaymentInformation();
+        }
+    }
+
+    private async Task DeletePayment(PaymentInformation paymentInformation)
+    {
+        var result = await DialogService.Show<DeleteConfirmationDialog>("Potrdi odstranitev plačila",
+            new DialogParameters { ["DeleteItemName"] = "plačilo " +paymentInformation.Description + " v znesku " + paymentInformation.Amount}).Result;
+
+        if (!result.Canceled)
+        {
+            var response = await Http.DeleteAsync($"PaymentInformation/{paymentInformation.Id}");
+            if (response.IsSuccessStatusCode)
+            {
+                Snackbar.Add("Plačilo uspešno odstranjeno!", Severity.Success);
+                await LoadPaymentInformation();
+            }
+            else
+            {
+                Snackbar.Add("Napaka pri odstranjevanju plačila.", Severity.Error);
+            }
         }
     }
 
