@@ -4,33 +4,43 @@
 
 @if (player != null)
 {
-    <MudTabs Elevation="4" Rounded="true" Color="@Color.Primary" AlwaysShowScrollButtons="true">
+    <MudTabs Elevation="4" Rounded="true" Color="@Color.Primary">
         <MudTabPanel Text="Osnovne informacije">
             <ChildContent>
                 <MudPaper Class="pa-4 ma-2">
                     <MudStack Spacing="4" Justify="Justify.Center" AlignItems="AlignItems.Center">
-                        <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
-                            <MudText Typo="Typo.h4" Style="text-align: center;">@player.FirstName @player.LastName</MudText>
+                        <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                            <MudText Typo="Typo.h6">@player.FirstName @player.LastName</MudText>
                             </MudStack>
                             <MudDivider />
-                            <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
-                                <MudText Typo="Typo.body1" Style="text-align: center;">Datum rojstva:</MudText>
-                                <MudText Typo="Typo.h6" Style="text-align: center;text-decoration: underline;">@player.DateOfBirth.ToString("d")</MudText>
+                            <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                                <MudText Typo="Typo.body1">Datum rojstva:</MudText>
+                                <MudText Typo="Typo.h6">@player.DateOfBirth.ToString("d")</MudText>
                             </MudStack>
                             <MudDivider />
-                            <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
-                                <MudText Typo="Typo.body1" Style="text-align: center;">Email:</MudText>
-                                <MudText Typo="Typo.h6" Style="text-align: center;text-decoration: underline;">@player.Email</MudText>
+                            <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                                <MudText Typo="Typo.body1">Email:</MudText>
+                                <MudText Typo="Typo.h6">@player.Email</MudText>
                             </MudStack>
                             <MudDivider />
-                            <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
-                                <MudText Typo="Typo.body1" Style="text-align: center;">Telefonska številka:</MudText>
-                                <MudText Typo="Typo.h6" Style="text-align: center;text-decoration: underline;">@player.PhoneNumber</MudText>
+                            <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                                <MudText Typo="Typo.body1">Telefonska številka:</MudText>
+                                <MudText Typo="Typo.h6">@player.PhoneNumber</MudText>
                             </MudStack>
                             <MudDivider />
-                            <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
-                                <MudText Typo="Typo.body1" Style="text-align: center;">Naslov:</MudText>
-                                <MudText Typo="Typo.h6" Style="text-align: center;text-decoration: underline;">@player.Address</MudText>
+                            <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                                <MudText Typo="Typo.body1">Naslov:</MudText>
+                                <MudText Typo="Typo.h6">@player.Address</MudText>
+                            </MudStack>
+                            <MudDivider />
+                            <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                                <MudText Typo="Typo.body1">Ime Starša:</MudText>
+                                <MudText Typo="Typo.h6">@player.ParentName</MudText>
+                            </MudStack>
+                            <MudDivider />
+                            <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                                <MudText Typo="Typo.body1">Telefonska številka starša:</MudText>
+                                <MudText Typo="Typo.h6">@player.ParentPhoneNumber</MudText>
                             </MudStack>
                             <MudDivider />
                             <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
@@ -55,6 +65,7 @@
                 </MudPaper>
             </ChildContent>
         </MudTabPanel>
+
         <MudTabPanel Text="Selekcije">
             <ChildContent>
                 <MudPaper Class="pa-4 ma-2">
@@ -77,7 +88,6 @@
                         </MudTable>
                         <MudSelect @bind-Value="selectedNewSelectionId">
                             <MudSelectItem Value="Guid.Empty"> -- Izberite selekcijo -- </MudSelectItem>
-
                             @foreach (var selection in allSelections.Where(s => player?.Selections == null ||
                     !player.Selections.Any(ps => ps.Id == s.Id)))
                         {
@@ -94,8 +104,7 @@
         <MudTabPanel Text="Prisotnosti" OnClick="LoadTrainingAttendances">
             <ChildContent>
                 <MudPaper Class="pa-4 ma-2">
-                    <MudDatePicker Date="selectedMonth" PickerMonthChanged="OnPickerMonthChanged" FixDay="1" Editable="true" Label="Izberite datum" DateFormat="MMMM yyyy" />
-
+                    <MudDatePicker Date="selectedMonth" PickerMonthChanged="OnMonthChanged" FixDay="1" Editable="true" Label="Izberite datum" DateFormat="MMMM yyyy" />
                     <MudTable Dense="true" Items="@daysInSelectedMonth">
                         <HeaderContent>
                             <MudTh>Datum</MudTh>
@@ -115,27 +124,65 @@
                 </MudPaper>
             </ChildContent>
         </MudTabPanel>
-        <MudTabPanel Text="Nagrade Trenerjem"></MudTabPanel>
-        <MudTabPanel Text="Meritve"></MudTabPanel>
-        <MudTabPanel Text="Starši/Skrbniki">
+
+        <MudTabPanel Text="Plačila" OnClick="LoadPaymentInformation">
             <ChildContent>
                 <MudPaper Class="pa-4 ma-2">
-                    <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
-                        <MudText Typo="Typo.body1" Style="text-align: center;">Ime Starša:</MudText>
-                        <MudText Typo="Typo.h6" Style="text-align: center;text-decoration: underline;">@player.ParentName</MudText>
+                    <MudToolBar>
+                        <MudTooltip Text="Dodaj plačilo">
+                            <MudIconButton Icon="@Icons.Material.Outlined.Euro" OnClick="OpenAddPaymentDialog" />
+                        </MudTooltip>
+                        <MudSpacer />
+                        <MudDatePicker Label="Prikaži novejše od izbranega datuma" Date="paymentDate" FixDay="1" DateFormat="dd.MM.yyyy" PickerMonthChanged="LoadPaymentInformationBasedOnDate" />
+
+                    </MudToolBar>
+                    <MudTable Items="paymentInformation">
+                        <HeaderContent>
+                            <MudTh>Datum</MudTh>
+                            <MudTh>Znesek</MudTh>
+                            <MudTh>Opis</MudTh>
+                            <MudTh>Tip plačila</MudTh>
+                            <MudTh>Uredi/Odstrani</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Datum">@context.DateOfPayment</MudTd>
+                                <MudTd DataLabel="Znesek">@context.Amount</MudTd>
+                                <MudTd DataLabel="Opis">@context.Description</MudTd>
+                                <MudTd DataLabel="Tip plačila">@EnumExtensions.ToUserFriendlyString(context.typeOfPayment)</MudTd>
+                                <MudTd>
+                                    <MudTooltip Text="Uredi plačilo" Arrow="true" Placement="Placement.Top">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="@(() => OpenEditPaymentDialog(context))"></MudIconButton>
+                                    </MudTooltip>
+                                    <MudTooltip Text="Odstrani plačilo" Arrow="true" Placement="Placement.Top">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="@(() => DeletePayment(context))"></MudIconButton>
+                                    </MudTooltip>
+                                </MudTd>
+                            </RowTemplate>
+                        </MudTable>
+                    </MudPaper>
+                </ChildContent>
+            </MudTabPanel>
+
+            <MudTabPanel Text="Meritve"></MudTabPanel>
+            <MudTabPanel Text="Starši/Skrbniki">
+                <ChildContent>
+                    <MudPaper Class="pa-4 ma-2">
+                        <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                            <MudText Typo="Typo.body1">Ime Starša:</MudText>
+                            <MudText Typo="Typo.h6">@player.ParentName</MudText>
                         </MudStack>
                         <MudDivider />
-                        <MudStack Spacing="2" Class="full-width" Justify="Justify.Center">
-                            <MudText Typo="Typo.body1" Style="text-align: center;">Telefonska številka starša:</MudText>
-                            <MudText Typo="Typo.h6" Style="text-align: center;text-decoration: underline;">@player.ParentPhoneNumber</MudText>
+                        <MudStack Spacing="2" AlignItems="AlignItems.Center">
+                            <MudText Typo="Typo.body1">Telefonska številka starša:</MudText>
+                            <MudText Typo="Typo.h6">@player.ParentPhoneNumber</MudText>
                         </MudStack>
                     </MudPaper>
                 </ChildContent>
             </MudTabPanel>
-            <MudTabPanel Icon="@Icons.Material.Filled.Edit" Style="width: 10%;"
+            <MudTabPanel Icon="@Icons.Material.Filled.Edit"
                          ToolTip="Posodobi Igralca" OnClick="@(() => GoToEditPlayer(player.Id))"></MudTabPanel>
-            <MudTabPanel Icon="@Icons.Material.Filled.Delete" Style="width: 10%;"
-                         ToolTip="Odstrani Igralca" OnClick="@(() => ConfirmDeletePlayer(player))"></MudTabPanel>
+            <MudTabPanel Icon="@Icons.Material.Filled.Delete"
+                         ToolTip="Odstrani Igralca" OnClick="@(() => DeletePlayer(player))"></MudTabPanel>
         </MudTabs>
 }
 else
