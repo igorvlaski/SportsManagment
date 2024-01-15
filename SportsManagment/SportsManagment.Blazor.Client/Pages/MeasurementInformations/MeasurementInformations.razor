@@ -34,7 +34,7 @@
 
         <RowTemplate>
                 <MudTd DataLabel="Ime meritve">@context.Name</MudTd>
-                <MudTd DataLabel="Datum meritve">@context.Date</MudTd>
+                <MudTd DataLabel="Datum meritve">@context.Date.ToLocalTime()</MudTd>
                 <MudTd DataLabel="Lokacija meritve">@context.Location</MudTd>
                 <MudTd DataLabel="Opis meritve">@context.Description</MudTd>
 
