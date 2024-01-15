@@ -31,7 +31,7 @@
             </MudTd>
             <MudTd>
                 <MudTooltip Text="Dodaj plačilo" Arrow="true" Placement="Placement.Top">
-                    <MudIconButton Icon="@Icons.Material.Filled.EuroSymbol" OnClick="@(() => OpenAddPaymentDialog(context.Id))" />
+                    <MudIconButton Icon="@Icons.Material.Outlined.PostAdd" Color="Color.Success" Variant="Variant.Outlined" OnClick="@(() => OpenAddPaymentDialog(context.Id))" />
                 </MudTooltip>
             </MudTd>
 
@@ -39,7 +39,7 @@
             {
                 var dayDateOnly = DateOnly.FromDateTime(day);
                 var attendanceRecord = trainingAttendances.FirstOrDefault(a => a.PlayerId == context.Id && a.Date == dayDateOnly);
-                <MudTd DataLabel="Trening">
+                <MudTd>
                     <MudCheckBox Color="Color.Primary" UnCheckedColor="Color.Error" Checked="@(attendanceRecord != null)"
                                  CheckedChanged="@((bool value) => OnAttendanceCheckboxChanged(value, context.Id, dayDateOnly, attendanceRecord?.Id))"></MudCheckBox>
                 </MudTd>

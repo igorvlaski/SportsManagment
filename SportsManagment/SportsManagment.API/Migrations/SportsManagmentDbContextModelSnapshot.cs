@@ -34,7 +34,7 @@ namespace SportsManagment.API.Migrations
 
                     b.HasIndex("SelectionsId");
 
-                    b.ToTable("PlayerSelection");
+                    b.ToTable("PlayerSelection", (string)null);
                 });
 
             modelBuilder.Entity("SportsManagment.Shared.Domain.MeasurementInformation", b =>
@@ -57,7 +57,7 @@ namespace SportsManagment.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MeasurementInformations");
+                    b.ToTable("MeasurementInformations", (string)null);
                 });
 
             modelBuilder.Entity("SportsManagment.Shared.Domain.PaymentInformation", b =>
@@ -85,7 +85,7 @@ namespace SportsManagment.API.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("PaymentInformations");
+                    b.ToTable("PaymentInformations", (string)null);
                 });
 
             modelBuilder.Entity("SportsManagment.Shared.Domain.Player", b =>
@@ -125,7 +125,7 @@ namespace SportsManagment.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Players");
+                    b.ToTable("Players", (string)null);
                 });
 
             modelBuilder.Entity("SportsManagment.Shared.Domain.PlayerMeasurement", b =>
@@ -179,7 +179,7 @@ namespace SportsManagment.API.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("PlayerMeasurements");
+                    b.ToTable("PlayerMeasurements", (string)null);
                 });
 
             modelBuilder.Entity("SportsManagment.Shared.Domain.Selection", b =>
@@ -196,7 +196,7 @@ namespace SportsManagment.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Selections");
+                    b.ToTable("Selections", (string)null);
                 });
 
             modelBuilder.Entity("SportsManagment.Shared.Domain.TrainingAttendance", b =>
@@ -220,7 +220,7 @@ namespace SportsManagment.API.Migrations
 
                     b.HasIndex("SelectionId");
 
-                    b.ToTable("TrainingAttendances");
+                    b.ToTable("TrainingAttendances", (string)null);
                 });
 
             modelBuilder.Entity("PlayerSelection", b =>

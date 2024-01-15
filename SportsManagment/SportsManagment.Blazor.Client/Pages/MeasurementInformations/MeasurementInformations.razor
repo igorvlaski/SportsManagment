@@ -2,13 +2,13 @@
 
 <PageTitle>Lokacija in datum meritev</PageTitle>
 
-@if (measurementInformations != null && measurementInformations.Any())
+@if (measurementInformation != null && measurementInformation.Any())
 {
-    <MudTable Items="measurementInformations">
+    <MudTable Items="measurementInformation">
 
         <ToolBarContent>
             <MudTooltip Text="Dodaj Meritev" Arrow="true" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Outlined.Add" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" OnClick="OpenAddMeasurementInformationDialog" />
             </MudTooltip>
             <MudSpacer />
         </ToolBarContent>
@@ -20,7 +20,7 @@
             </MudTh>
             <MudTh>
                 <MudTooltip Text="Razvrsti po datumu meritve" Arrow="true" Placement="Placement.Top">
-                    <MudTableSortLabel SortBy="new Func<MeasurementInformation, object>(x=>x.Date)">Datum meritev</MudTableSortLabel>
+                    <MudTableSortLabel SortBy="new Func<MeasurementInformation, object>(x=>x.Date)">Datum in čas meritev</MudTableSortLabel>
                 </MudTooltip>
             </MudTh>
             <MudTh>
@@ -28,21 +28,22 @@
                     <MudTableSortLabel SortBy="new Func<MeasurementInformation, object>(x=>x.Location)">Lokacija meritev</MudTableSortLabel>
                 </MudTooltip>
             </MudTh>
-            <MudTh>Lokacija meritev</MudTh>
+            <MudTh>Opis meritve</MudTh>
             <MudTh>Posodobi ali odstrani meritev</MudTh>
         </HeaderContent>
 
         <RowTemplate>
-            <MudTd DataLabel="Ime meritve">@context.Name</MudTd>
+                <MudTd DataLabel="Ime meritve">@context.Name</MudTd>
                 <MudTd DataLabel="Datum meritve">@context.Date</MudTd>
-                <MudTd DataLabel="Email">@context.Location</MudTd>
-                <MudTd DataLabel="Email">@context.Description</MudTd>
+                <MudTd DataLabel="Lokacija meritve">@context.Location</MudTd>
+                <MudTd DataLabel="Opis meritve">@context.Description</MudTd>
+
                 <MudTd>
                     <MudTooltip Text="Posodobi meritev" Arrow="true" Placement="Placement.Top">
-                        <MudIconButton Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="@(() =>OpenEditMeasurmentInformationDialog(context))"></MudIconButton>
                     </MudTooltip>
                     <MudTooltip Text="Odstrani meritev" Arrow="true" Placement="Placement.Top">
-                        <MudIconButton Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="@(() =>DeleteMeasurmentInformation(context))"></MudIconButton>
                     </MudTooltip>
                 </MudTd>
             </RowTemplate>

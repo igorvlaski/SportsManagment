@@ -7,7 +7,7 @@
     <MudTable Items="selections">
         <ToolBarContent>
             <MudTooltip Text="Dodaj selekcijo" Arrow="true" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Outlined.Add" OnClick="GoToCreateASelection" />
+                <MudIconButton Icon="@Icons.Material.Outlined.GroupAdd" OnClick="GoToCreateASelection" />
             </MudTooltip>
         </ToolBarContent>
         <HeaderContent>
@@ -20,13 +20,13 @@
             <MudTh>Uredi ali odstrani selekcijo</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Selection Name">
+            <MudTd DataLabel="Ime selekcije">
                 <MudTooltip Text="Pojdi na  urejanje prisotnosti" Arrow="true" Placement="Placement.Top">
                     <MudButton OnClick="@(() => GoToSelectionDetails(context.Id))">@context.SelectionName</MudButton>
                     </MudTooltip>
 
                 </MudTd>
-                <MudTd DataLabel="Description">@context.Description</MudTd>
+                <MudTd DataLabel="Opis selekcije">@context.Description</MudTd>
                 <MudTd>
                     <MudTooltip Text="Posodobi selekcijo" Arrow="true" Placement="Placement.Top">
                         <MudIconButton OnClick="@(() => GoToEditSelection(context.Id))" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
