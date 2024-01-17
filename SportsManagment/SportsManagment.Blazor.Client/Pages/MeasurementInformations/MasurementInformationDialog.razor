@@ -1,0 +1,15 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudForm>
+            <MudTextField Label="Ime meritve" @bind-Value="measurementInformation.Name" FullWidth />
+             <MudDatePicker Label="Datum meritve" Editable="true" @bind-Date="tempDate" DateFormat="dd.MM.yyyy" />
+             <MudTimePicker Label="Čas meritev" Editable="true" @bind-Time="tempTime" />
+             <MudTextField Label="Opis meritve" @bind-Value="measurementInformation.Description" FullWidth />
+             <MudTextField Label="Lokacija meritve" @bind-Value="measurementInformation.Location" FullWidth />
+         </MudForm>
+     </DialogContent>
+     <DialogActions>
+         <MudButton OnClick="@OnSubmit" Color="Color.Primary">@(existingMeasurementInformation == null ? "Potrdi" : "Dodaj")</MudButton>
+         <MudButton OnClick="@Cancel" Color="Color.Error">Prekliči</MudButton>
+     </DialogActions>
+ </MudDialog>
