@@ -63,6 +63,18 @@
                         </MudStack>
                     </MudStack>
                 </MudPaper>
+                <MudTooltip Text="Posodobi Igralca" Arrow="true" Color="Color.Primary" Placement="Placement.Top">
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                   Color="Color.Primary" 
+                                   OnClick="@(() => GoToEditPlayer(player.Id))"
+                                   Variant="Variant.Outlined"></MudIconButton>
+                </MudTooltip>
+                <MudTooltip Text="Odstrani Igralca" Arrow="true" Color="Color.Error" Placement="Placement.Top">
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" 
+                                   Color="Color.Error" 
+                                   OnClick="@(() => DeletePlayer(player))"
+                                   Variant="Variant.Outlined"></MudIconButton>
+                </MudTooltip>
             </ChildContent>
         </MudTabPanel>
 
@@ -150,11 +162,17 @@
                                 <MudTd DataLabel="Opis">@context.Description</MudTd>
                                 <MudTd DataLabel="Tip plačila">@EnumExtensions.ToUserFriendlyString(context.typeOfPayment)</MudTd>
                                 <MudTd>
-                                    <MudTooltip Text="Uredi plačilo" Arrow="true" Placement="Placement.Top">
-                                        <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="@(() => OpenEditPaymentDialog(context))"></MudIconButton>
+                                    <MudTooltip Text="Uredi plačilo" Arrow="true" Color="Color.Primary" Placement="Placement.Top">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Edit" 
+                                                       OnClick="@(() => OpenEditPaymentDialog(context))"
+                                                       Variant="Variant.Outlined" 
+                                                       Color="Color.Primary"></MudIconButton>
                                     </MudTooltip>
-                                    <MudTooltip Text="Odstrani plačilo" Arrow="true" Placement="Placement.Top">
-                                        <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="@(() => DeletePayment(context))"></MudIconButton>
+                                    <MudTooltip Text="Odstrani plačilo" Arrow="true" Color="Color.Error" Placement="Placement.Top">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Delete" 
+                                                       OnClick="@(() => DeletePayment(context))"
+                                                       Variant="Variant.Outlined"
+                                                       Color="Color.Error"></MudIconButton>
                                     </MudTooltip>
                                 </MudTd>
                             </RowTemplate>
@@ -179,10 +197,6 @@
                     </MudPaper>
                 </ChildContent>
             </MudTabPanel>
-            <MudTabPanel Icon="@Icons.Material.Filled.Edit"
-                         ToolTip="Posodobi Igralca" OnClick="@(() => GoToEditPlayer(player.Id))"></MudTabPanel>
-            <MudTabPanel Icon="@Icons.Material.Filled.Delete"
-                         ToolTip="Odstrani Igralca" OnClick="@(() => DeletePlayer(player))"></MudTabPanel>
         </MudTabs>
 }
 else
