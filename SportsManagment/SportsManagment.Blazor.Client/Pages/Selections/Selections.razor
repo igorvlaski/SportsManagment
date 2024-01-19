@@ -6,8 +6,11 @@
 {
     <MudTable Items="selections">
         <ToolBarContent>
-            <MudTooltip Text="Dodaj selekcijo" Arrow="true" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Outlined.GroupAdd" OnClick="GoToCreateASelection" />
+            <MudTooltip Text="Dodaj selekcijo" Arrow="true" Color="Color.Success" Placement="Placement.Top">
+                <MudIconButton Icon="@Icons.Material.Outlined.GroupAdd" 
+                               Variant="Variant.Outlined" 
+                               OnClick="GoToCreateASelection"
+                               Color="Color.Success"/>
             </MudTooltip>
         </ToolBarContent>
         <HeaderContent>
@@ -17,7 +20,7 @@
                 </MudTooltip>
             </MudTh>
             <MudTh>Opis selekcije</MudTh>
-            <MudTh>Uredi ali odstrani selekcijo</MudTh>
+            <MudTh>Posodobi ali odstrani selekcijo</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd DataLabel="Ime selekcije">
@@ -28,12 +31,17 @@
                 </MudTd>
                 <MudTd DataLabel="Opis selekcije">@context.Description</MudTd>
                 <MudTd>
-                    <MudTooltip Text="Posodobi selekcijo" Arrow="true" Placement="Placement.Top">
-                        <MudIconButton OnClick="@(() => GoToEditSelection(context.Id))" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                    <MudTooltip Text="Posodobi selekcijo" Arrow="true" Color="Color.Primary" Placement="Placement.Top">
+                        <MudIconButton OnClick="@(() => GoToEditSelection(context.Id))" 
+                                       Icon="@Icons.Material.Filled.Edit"
+                                       Color="Color.Primary"
+                                       Variant="Variant.Outlined"></MudIconButton>
                     </MudTooltip>
-                    <MudTooltip Text="Odstrani selekcijo" Arrow="true" Placement="Placement.Top">
+                    <MudTooltip Text="Odstrani selekcijo" Color="Color.Error" Arrow="true" Placement="Placement.Top">
                         <MudIconButton Icon="@Icons.Material.Filled.Delete"
-                                       OnClick="@(() => ConfirmDeleteSelection(context))"></MudIconButton>
+                                       OnClick="@(() => ConfirmDeleteSelection(context))"
+                                       Color="Color.Error"
+                                       Variant="Variant.Outlined"></MudIconButton>
                     </MudTooltip>
                 </MudTd>
             </RowTemplate>
