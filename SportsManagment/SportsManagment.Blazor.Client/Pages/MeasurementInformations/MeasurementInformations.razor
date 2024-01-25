@@ -7,8 +7,11 @@
     <MudTable Items="measurementInformation">
 
         <ToolBarContent>
-            <MudTooltip Text="Dodaj Meritev" Arrow="true" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Outlined.Add" OnClick="OpenAddMeasurementInformationDialog" />
+            <MudTooltip Text="Dodaj Meritev" Arrow="true" Color="Color.Success" Placement="Placement.Top">
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" 
+                               OnClick="OpenAddMeasurementInformationDialog"
+                               Color="Color.Success"
+                               Variant="Variant.Outlined" />
             </MudTooltip>
             <MudSpacer />
         </ToolBarContent>
@@ -38,12 +41,18 @@
                 <MudTd DataLabel="Lokacija meritve">@context.Location</MudTd>
                 <MudTd DataLabel="Opis meritve">@context.Description</MudTd>
 
-                <MudTd DataLabel="Posodobi/odstrani meritev">
-                    <MudTooltip Text="Posodobi meritev" Arrow="true" Placement="Placement.Top">
-                        <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="@(() =>OpenEditMeasurmentInformationDialog(context))"></MudIconButton>
+                <MudTd>
+                    <MudTooltip Text="Posodobi meritev" Arrow="true" Color="Color.Primary" Placement="Placement.Top">
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit" 
+                                       Color="Color.Primary" 
+                                       OnClick="@(() =>OpenEditMeasurmentInformationDialog(context))"
+                                       Variant="Variant.Outlined"></MudIconButton>
                     </MudTooltip>
-                    <MudTooltip Text="Odstrani meritev" Arrow="true" Placement="Placement.Top">
-                        <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="@(() =>DeleteMeasurmentInformation(context))"></MudIconButton>
+                    <MudTooltip Text="Odstrani meritev" Arrow="true" Color="Color.Error" Placement="Placement.Top">
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" 
+                                       Color="Color.Error" 
+                                       OnClick="@(() =>DeleteMeasurmentInformation(context))"
+                                       Variant="Variant.Outlined"></MudIconButton>
                     </MudTooltip>
                 </MudTd>
             </RowTemplate>

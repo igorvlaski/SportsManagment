@@ -13,7 +13,7 @@
          </MudForm>
      </DialogContent>
      <DialogActions>
-        <MudButton OnClick="@Submit" Color="Color.Primary">@(ExistingPaymentInformation == null ? "Potrdi" : "Dodaj")</MudButton>
+        <MudButton OnClick="@Submit" Color="Color.Primary">@(ExistingPaymentInformation == null ? "Dodaj" : "Potrdi")</MudButton>
         <MudButton OnClick="@Cancel" Color="Color.Error">Prekliči</MudButton>
     </DialogActions>
 </MudDialog>

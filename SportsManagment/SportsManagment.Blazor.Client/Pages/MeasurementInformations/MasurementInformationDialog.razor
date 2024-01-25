@@ -9,7 +9,7 @@
          </MudForm>
      </DialogContent>
      <DialogActions>
-         <MudButton OnClick="@OnSubmit" Color="Color.Primary">@(existingMeasurementInformation == null ? "Potrdi" : "Dodaj")</MudButton>
+         <MudButton OnClick="@OnSubmit" Color="Color.Primary">@(existingMeasurementInformation == null ? "Dodaj" : "Potrdi")</MudButton>
          <MudButton OnClick="@Cancel" Color="Color.Error">Prekliči</MudButton>
      </DialogActions>
  </MudDialog>

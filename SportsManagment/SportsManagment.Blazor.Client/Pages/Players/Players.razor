@@ -7,8 +7,11 @@
     <MudTable Items="players" Filter="FilterFunction" FixedHeader="true">
 
         <ToolBarContent>
-            <MudTooltip Text="Dodaj Igralca" Arrow="true" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Outlined.PersonAddAlt" OnClick="GoToCreateAPlayer" />
+            <MudTooltip Text="Dodaj Igralca" Arrow="true" Color="Color.Success" Placement="Placement.Top">
+                <MudIconButton Icon="@Icons.Material.Outlined.PersonAddAlt" 
+                               Variant="Variant.Outlined" 
+                               OnClick="GoToCreateAPlayer"
+                               Color="Color.Success" />
             </MudTooltip>
             <MudSpacer />
             <MudTextField @bind-Value="searchString"
@@ -42,14 +45,20 @@
 
             </MudTd>
             <MudTd DataLabel="Datum rojstva">@context.DateOfBirth</MudTd>
-                <MudTd DataLabel="Tel. Številka: igralec/starš">@($"{context.PhoneNumber} / {context.ParentPhoneNumber}")</MudTd>
-                <MudTd DataLabel="Posodobi/odstrani igralca">
-                    <MudTooltip Text="Posodobi Igralca" Arrow="true" Placement="Placement.Top">
-                        <MudIconButton OnClick="@(() => GoToEditPlayer(context.Id))" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                <MudTd DataLabel="Email">@context.Email</MudTd>
+
+
+                <MudTd>
+                    <MudTooltip Text="Posodobi Igralca" Arrow="true" Color="Color.Primary" Placement="Placement.Top">
+                        <MudIconButton OnClick="@(() => GoToEditPlayer(context.Id))" 
+                                       Color="Color.Primary" 
+                                       Icon="@Icons.Material.Filled.Edit"
+                                       Variant="Variant.Outlined"></MudIconButton>
                     </MudTooltip>
-                    <MudTooltip Text="Odstrani igralca" Arrow="true" Placement="Placement.Top">
+                    <MudTooltip Text="Odstrani igralca" Arrow="true" Color="Color.Error" Placement="Placement.Top">
                         <MudIconButton Icon="@Icons.Material.Filled.Delete"
-                                       OnClick="@(() => DeletePlayer(context))"></MudIconButton>
+                                       OnClick="@(() => DeletePlayer(context))"
+                                       Color="Color.Error" Variant="Variant.Outlined"></MudIconButton>
                     </MudTooltip>
                 </MudTd>
             </RowTemplate>
