@@ -4,7 +4,7 @@
 
 @if (players != null && players.Any())
 {
-    <MudTable Items="players" Filter="FilterFunction" FixedHeader ="true">
+    <MudTable Items="players" Filter="FilterFunction" FixedHeader="true">
 
         <ToolBarContent>
             <MudTooltip Text="Dodaj Igralca" Arrow="true" Placement="Placement.Top">
@@ -30,7 +30,7 @@
                 <MudTableSortLabel SortBy="new Func<Player, object>(x=>x.DateOfBirth)">Datum rojstva</MudTableSortLabel>
                 </MudTooltip>
                 </MudTh>
-            <MudTh>Email</MudTh>
+            <MudTh>Tel. Številka: igralec/starš</MudTh>
             <MudTh>Posodobi ali odstrani Igralca</MudTh>
         </HeaderContent>
 
@@ -42,10 +42,8 @@
 
             </MudTd>
             <MudTd DataLabel="Datum rojstva">@context.DateOfBirth</MudTd>
-                <MudTd DataLabel="Email">@context.Email</MudTd>
-
-
-                <MudTd>
+                <MudTd DataLabel="Tel. Številka: igralec/starš">@($"{context.PhoneNumber} / {context.ParentPhoneNumber}")</MudTd>
+                <MudTd DataLabel="Posodobi/odstrani igralca">
                     <MudTooltip Text="Posodobi Igralca" Arrow="true" Placement="Placement.Top">
                         <MudIconButton OnClick="@(() => GoToEditPlayer(context.Id))" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
                     </MudTooltip>

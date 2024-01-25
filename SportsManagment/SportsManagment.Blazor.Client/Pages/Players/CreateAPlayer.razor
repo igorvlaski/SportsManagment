@@ -6,7 +6,12 @@
     <MudForm Model="player">
         <MudTextField Label="Ime" @bind-Value="player.FirstName"/>
         <MudTextField Label="Priimek" @bind-Value="player.LastName"/>
-        <MudDatePicker Label="Datum rojstva" Editable="true" @bind-Date="tempBirthDate" DateFormat="dd.MM.yyyy" />
+        <MudDatePicker Label="Datum rojstva" 
+                       Editable="true" 
+                       @bind-Date="tempBirthDate" 
+                       DateFormat="dd.MM.yyyy"
+                       AnchorOrigin="Origin.CenterCenter"
+                       TransformOrigin="Origin.CenterCenter" />
         <MudTextField Label="Email" @bind-Value="player.Email"/>
         <MudTextField Label="Naslov" @bind-Value="player.Address"/>
         <MudTextField Label="Telefonska številka" @bind-Value="player.PhoneNumber"/>

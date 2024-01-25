@@ -79,10 +79,13 @@
                             <MudTd DataLabel="Selection Name">@context.SelectionName</MudTd>
                                 <MudTd DataLabel="Description">@context.Description</MudTd>
                                 <MudTd>
-                                    <MudButton Color="Color.Error"
+                                    <MudTooltip Text="Odstrani selekcijo" Arrow="true" Placement="Placement.Top">
+                                    <MudIconButton Color="Color.Error"
                                                Size="Size.Small"
-                                               Variant="Variant.Filled"
-                                               OnClick="@(() => UpdatePlayerSelection(context.Id))">Odstrani iz selekcije</MudButton>
+                                               Icon="@Icons.Material.Filled.GroupRemove"
+                                               Variant="Variant.Outlined"
+                                               OnClick="@(() => UpdatePlayerSelection(context.Id))" />
+                                    </MudTooltip>
                                 </MudTd>
                             </RowTemplate>
                         </MudTable>
@@ -129,12 +132,24 @@
             <ChildContent>
                 <MudPaper Class="pa-4 ma-2">
                     <MudToolBar>
-                        <MudTooltip Text="Dodaj plačilo">
-                            <MudIconButton Icon="@Icons.Material.Outlined.PostAdd" Color="Color.Success" Variant="Variant.Outlined" OnClick="OpenAddPaymentDialog" />
+                        <MudTooltip Text="Dodaj plačilo" Color="Color.Success" Arrow="true" Placement="Placement.Top">
+                            <MudIconButton Icon="@Icons.Material.Outlined.PostAdd" 
+                                           Color="Color.Success" 
+                                           Variant="Variant.Outlined" 
+                                           OnClick="OpenAddPaymentDialog"/>
                         </MudTooltip>
                         <MudSpacer />
-                        <MudDatePicker Label="Prikaži novejše od izbranega datuma" Date="paymentDate" FixDay="1" DateFormat="dd.MM.yyyy" PickerMonthChanged="LoadPaymentInformationBasedOnDate" />
+                        <MudTooltip Text="Prikaži novejše od izbranega datuma" Arrow="true" Placement="Placement.Top">
+                        
+                        <MudDatePicker Date="paymentDate"   
+                                       FixDay="1" 
+                                       DateFormat="dd.MM.yyyy"
+                                       PickerMonthChanged="LoadPaymentInformationBasedOnDate"
+                                       Style="margin-left: auto; width: auto; max-width: 90%;"
+                                       AnchorOrigin="Origin.CenterCenter"
+                                       TransformOrigin="Origin.CenterCenter"/>
 
+                        </MudTooltip>
                     </MudToolBar>
                     <MudTable Items="paymentInformation">
                         <HeaderContent>
@@ -149,7 +164,7 @@
                                 <MudTd DataLabel="Znesek">@context.Amount</MudTd>
                                 <MudTd DataLabel="Opis">@context.Description</MudTd>
                                 <MudTd DataLabel="Tip plačila">@EnumExtensions.ToUserFriendlyString(context.typeOfPayment)</MudTd>
-                                <MudTd>
+                                <MudTd DataLabel="Uredi/odstrani plačilo">
                                     <MudTooltip Text="Uredi plačilo" Arrow="true" Placement="Placement.Top">
                                         <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="@(() => OpenEditPaymentDialog(context))"></MudIconButton>
                                     </MudTooltip>
