@@ -30,7 +30,7 @@
 
                 </MudTd>
                 <MudTd DataLabel="Opis selekcije">@context.Description</MudTd>
-                <MudTd>
+                <MudTd DataLabel="Posodobi/odstrani selekcijo">
                     <MudTooltip Text="Posodobi selekcijo" Arrow="true" Color="Color.Primary" Placement="Placement.Top">
                         <MudIconButton OnClick="@(() => GoToEditSelection(context.Id))" 
                                        Icon="@Icons.Material.Filled.Edit"
