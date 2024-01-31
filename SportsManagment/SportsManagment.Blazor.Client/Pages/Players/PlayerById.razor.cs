@@ -65,7 +65,7 @@ public partial class PlayerById
         }
     }
 
-    private async Task UpdatePlayerSelection(Guid selectionId)
+    private async Task AddOrRemovePlayerFromSelection(Guid selectionId)
     {
         bool currentlySelected = player.Selections.Any(s => s.Id == selectionId);
         var response = await Http.PatchAsync($"Player/{PlayerId}/selection/{selectionId}", null);

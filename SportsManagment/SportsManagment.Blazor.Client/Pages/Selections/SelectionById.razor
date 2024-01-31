@@ -10,7 +10,7 @@
     <MudTable Items="selection.Players">
         <ToolBarContent>
             <MudTooltip Text="Posodobi selekcijo" Arrow="true" Placement="Placement.Top">
-                <MudIconButton OnClick="@(() => GoToEditSelection(selection.Id))" 
+                <MudIconButton OnClick="@(() => GoToEditSelection(selection.Id))"
                                Icon="@Icons.Material.Filled.Edit"
                                Color="Color.Primary"
                                Variant="Variant.Outlined"></MudIconButton>
@@ -19,22 +19,19 @@
 
         <HeaderContent>
             <MudTh>Ime igralca</MudTh>
-            <MudTh>Dodaj plačilo</MudTh>
             @foreach (var day in currentWeekDays)
             {
-                <MudTh>@day.ToString("ddd dd")</MudTh>
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    <MudTh>@day.ToString("ddd dd")</MudTh>
+                    </MudHidden>
             }
+            <MudTh>Dodaj plačilo</MudTh>
         </HeaderContent>
 
         <RowTemplate>
             <MudTd DataLabel="Ime igralca">
                 <MudTooltip Text="Pojdi na igralca" Arrow="true" Placement="Placement.Top">
-                <MudButton OnClick="@(() => GoToPlayerDetails(context.Id))">@($"{context.FirstName} {context.LastName}")</MudButton>
-                </MudTooltip>
-            </MudTd>
-            <MudTd>
-                <MudTooltip Text="Dodaj plačilo" Arrow="true" Placement="Placement.Top">
-                    <MudIconButton Icon="@Icons.Material.Outlined.PostAdd" Color="Color.Success" Variant="Variant.Outlined" OnClick="@(() => OpenAddPaymentDialog(context.Id))" />
+                    <MudButton OnClick="@(() => GoToPlayerDetails(context.Id))">@($"{context.FirstName} {context.LastName}")</MudButton>
                 </MudTooltip>
             </MudTd>
 
@@ -42,11 +39,23 @@
             {
                 var dayDateOnly = DateOnly.FromDateTime(day);
                 var attendanceRecord = trainingAttendances.FirstOrDefault(a => a.PlayerId == context.Id && a.Date == dayDateOnly);
-                <MudTd>
-                    <MudCheckBox Color="Color.Primary" UnCheckedColor="Color.Error" Checked="@(attendanceRecord != null)"
-                                 CheckedChanged="@((bool value) => OnAttendanceCheckboxChanged(value, context.Id, dayDateOnly, attendanceRecord?.Id))"></MudCheckBox>
-                </MudTd>
+                var breakpoint = day.Date == DateTime.Today ? Breakpoint.None : Breakpoint.Xs;
+
+                <MudHidden Breakpoint="@breakpoint">
+                    <MudTd DataLabel="@day.ToString("ddd dd")">
+                        <MudCheckBox Color="Color.Primary" UnCheckedColor="Color.Error" Checked="@(attendanceRecord != null)"
+                                     CheckedChanged="@((bool value) => OnAttendanceCheckboxChanged(value, context.Id, dayDateOnly, attendanceRecord?.Id))">
+                        </MudCheckBox>
+                    </MudTd>
+                </MudHidden>
             }
+            <MudHidden Breakpoint="Breakpoint.Xs">
+                <MudTd>
+                    <MudTooltip Text="Dodaj plačilo" Arrow="true" Placement="Placement.Top">
+                        <MudIconButton Icon="@Icons.Material.Outlined.PostAdd" Color="Color.Success" Variant="Variant.Outlined" OnClick="@(() => OpenAddPaymentDialog(context.Id))" />
+                    </MudTooltip>
+                </MudTd>
+            </MudHidden>
         </RowTemplate>
 
         <PagerContent>
