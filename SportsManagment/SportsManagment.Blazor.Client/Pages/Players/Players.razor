@@ -48,7 +48,7 @@
                 <MudTd DataLabel="Tel. Številka: igralec / starš">@($"{context.PhoneNumber} / {context.ParentPhoneNumber}")</MudTd>
 
 
-                <MudTd DataLabel="Posodobi/odstrani selekcijo">
+                <MudTd DataLabel="Posodobi/odstrani igralca">
                     <MudTooltip Text="Posodobi Igralca" Arrow="true" Color="Color.Primary" Placement="Placement.Top">
                         <MudIconButton OnClick="@(() => GoToEditPlayer(context.Id))" 
                                        Color="Color.Primary" 
